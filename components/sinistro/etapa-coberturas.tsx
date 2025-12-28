@@ -23,36 +23,34 @@ export function EtapaCoberturas() {
 
       {cobertura && (
         <div className="bg-[#e9f5f9] border-2 border-[#239dc5] rounded-lg p-6">
-          <div className="flex items-start justify-between mb-4">
-            <div className="flex-1">
-              <div className="flex items-center gap-3 mb-3 flex-wrap">
-                <div className="font-['Poppins'] text-[#424242] text-[18px]">
-                  {cobertura.nome}
-                </div>
-                <span className="px-3 py-1 bg-[#239dc5] text-white rounded-full text-sm font-['Poppins']">
-                  Cobertura Aplicável
-                </span>
-                {cobertura.validadaAgente && (
-                  <AgentIndicator type="validated" />
-                )}
+          <div className="mb-4">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="font-['Poppins'] text-[#424242] text-[18px] font-medium">
+                {cobertura.nome}
               </div>
+              <span className="px-3 py-1 bg-[#239dc5] text-white rounded-full text-sm font-['Poppins']">
+                Cobertura Aplicável
+              </span>
+              {cobertura.validadaAgente && (
+                <AgentIndicator type="validated" />
+              )}
+            </div>
 
-              <div className="grid grid-cols-2 gap-6">
-                <div>
-                  <div className="text-sm font-['Poppins'] text-[#707070] mb-1">
-                    Valor Segurado
-                  </div>
-                  <div className="font-['Poppins'] text-[#424242] text-[20px]">
-                    {formatCurrency(cobertura.valorSegurado)}
-                  </div>
+            <div className="grid grid-cols-2 gap-6">
+              <div>
+                <div className="text-sm font-['Poppins'] text-[#707070] mb-1">
+                  Valor Segurado
                 </div>
-                <div>
-                  <div className="text-sm font-['Poppins'] text-[#707070] mb-1">
-                    Franquia
-                  </div>
-                  <div className="font-['Poppins'] text-[#424242] text-[20px]">
-                    {formatCurrency(cobertura.franquia)}
-                  </div>
+                <div className="font-['Poppins'] text-[#424242] text-[20px]">
+                  {formatCurrency(cobertura.valorSegurado)}
+                </div>
+              </div>
+              <div>
+                <div className="text-sm font-['Poppins'] text-[#707070] mb-1">
+                  Franquia
+                </div>
+                <div className="font-['Poppins'] text-[#424242] text-[20px]">
+                  {formatCurrency(cobertura.franquia)}
                 </div>
               </div>
             </div>

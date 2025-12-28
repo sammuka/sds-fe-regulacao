@@ -31,49 +31,53 @@ export function EtapaPagamentos() {
               }`}
             >
               {/* Header do Pagamento */}
-              <div className="flex items-start justify-between mb-4">
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-2 flex-wrap">
-                    <div className="text-gray-900 font-medium">
-                      {pagamento.numeroIdentificador || 'Pagamento Principal'}
-                    </div>
-                    <span
-                      className={`px-2 py-1 rounded text-xs flex items-center gap-1 ${
-                        pagamento.status === 'aprovado'
-                          ? 'bg-green-100 text-green-700'
-                          : pagamento.status === 'pago'
-                          ? 'bg-blue-100 text-blue-700'
-                          : pagamento.status === 'bloqueado'
-                          ? 'bg-red-100 text-red-700'
-                          : 'bg-yellow-100 text-yellow-700'
-                      }`}
-                    >
-                      {isBloqueado && <Lock className="w-3 h-3" />}
-                      {pagamento.status === 'pendente' ? 'Pendente Aprovação' : 
-                       pagamento.status === 'bloqueado' ? 'Bloqueado' : pagamento.status}
+              <div className="mb-4">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="text-gray-900 font-medium">
+                    {pagamento.numeroIdentificador || 'Pagamento Principal'}
+                  </div>
+                  <span
+                    className={`px-2 py-1 rounded text-xs flex items-center gap-1 ${
+                      pagamento.status === 'aprovado'
+                        ? 'bg-green-100 text-green-700'
+                        : pagamento.status === 'pago'
+                        ? 'bg-blue-100 text-blue-700'
+                        : pagamento.status === 'bloqueado'
+                        ? 'bg-red-100 text-red-700'
+                        : 'bg-yellow-100 text-yellow-700'
+                    }`}
+                  >
+                    {isBloqueado && <Lock className="w-3 h-3" />}
+                    {pagamento.status === 'pendente' ? 'Pendente Aprovação' :
+                     pagamento.status === 'bloqueado' ? 'Bloqueado' : pagamento.status}
+                  </span>
+                  {pagamento.calculadoPorAgente && (
+                    <span className="px-2 py-1 bg-green-500 text-white rounded text-xs flex items-center gap-1">
+                      <Check className="w-3 h-3" />
+                      Calculado pelo Agente
                     </span>
-                    {pagamento.calculadoPorAgente && (
-                      <span className="px-2 py-1 bg-green-500 text-white rounded text-xs flex items-center gap-1">
-                        <Check className="w-3 h-3" />
-                        Calculado pelo Agente
-                      </span>
-                    )}
-                    {pagamento.pagamentoTotalFinal && (
-                      <span className="px-2 py-1 bg-purple-100 text-purple-700 rounded text-xs">
-                        Total e Final
-                      </span>
-                    )}
-                  </div>
-                  
-                  {/* Favorecido e Cobertura */}
-                  <div className="flex items-center gap-4 text-sm text-gray-600">
-                    {pagamento.favorecido && (
-                      <span>Favorecido: {pagamento.favorecido}</span>
-                    )}
-                    {pagamento.coberturaRelacionada && (
-                      <span>Cobertura: {pagamento.coberturaRelacionada}</span>
-                    )}
-                  </div>
+                  )}
+                  {pagamento.pagamentoTotalFinal && (
+                    <span className="px-2 py-1 bg-purple-100 text-purple-700 rounded text-xs">
+                      Total e Final
+                    </span>
+                  )}
+                </div>
+
+                {/* Favorecido e Cobertura */}
+                <div className="grid grid-cols-2 gap-4 text-sm">
+                  {pagamento.favorecido && (
+                    <div>
+                      <span className="text-gray-600">Favorecido: </span>
+                      <span className="text-gray-900">{pagamento.favorecido}</span>
+                    </div>
+                  )}
+                  {pagamento.coberturaRelacionada && (
+                    <div>
+                      <span className="text-gray-600">Cobertura: </span>
+                      <span className="text-gray-900">{pagamento.coberturaRelacionada}</span>
+                    </div>
+                  )}
                 </div>
               </div>
 

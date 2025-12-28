@@ -48,29 +48,39 @@ export function EtapaAberturaAviso() {
           <div className="space-y-4">
             {/* Comunicante e Data/Hora */}
             <div className="bg-gray-50 rounded-lg p-4">
-              <div className="flex items-start gap-6 flex-wrap">
-                <div className="flex items-center gap-2 text-sm">
-                  <User className="w-4 h-4 text-gray-500" />
-                  <span className="text-gray-600">Comunicante:</span>
-                  <span className="text-gray-900 font-medium">{dadosComunicado.comunicante.nome}</span>
+              <div className="grid grid-cols-2 gap-4 text-sm">
+                <div>
+                  <div className="flex items-center gap-2 text-gray-600 mb-1">
+                    <User className="w-4 h-4" />
+                    <span>Comunicante</span>
+                  </div>
+                  <div className="text-gray-900 font-medium">{dadosComunicado.comunicante.nome}</div>
+                </div>
+                <div>
+                  <div className="flex items-center gap-2 text-gray-600 mb-1">
+                    <Calendar className="w-4 h-4" />
+                    <span>Data do Comunicado</span>
+                  </div>
+                  <div className="text-gray-900 font-medium">{dadosComunicado.dataHoraComunicado}</div>
                 </div>
                 {dadosComunicado.comunicante.email && (
-                  <div className="flex items-center gap-2 text-sm">
-                    <Mail className="w-4 h-4 text-gray-500" />
-                    <span className="text-gray-700">{dadosComunicado.comunicante.email}</span>
+                  <div>
+                    <div className="flex items-center gap-2 text-gray-600 mb-1">
+                      <Mail className="w-4 h-4" />
+                      <span>E-mail</span>
+                    </div>
+                    <div className="text-gray-900">{dadosComunicado.comunicante.email}</div>
                   </div>
                 )}
                 {dadosComunicado.comunicante.telefone && (
-                  <div className="flex items-center gap-2 text-sm">
-                    <Phone className="w-4 h-4 text-gray-500" />
-                    <span className="text-gray-700">{dadosComunicado.comunicante.telefone}</span>
+                  <div>
+                    <div className="flex items-center gap-2 text-gray-600 mb-1">
+                      <Phone className="w-4 h-4" />
+                      <span>Telefone</span>
+                    </div>
+                    <div className="text-gray-900">{dadosComunicado.comunicante.telefone}</div>
                   </div>
                 )}
-                <div className="flex items-center gap-2 text-sm">
-                  <Calendar className="w-4 h-4 text-gray-500" />
-                  <span className="text-gray-600">Comunicado em:</span>
-                  <span className="text-gray-900 font-medium">{dadosComunicado.dataHoraComunicado}</span>
-                </div>
               </div>
             </div>
 
@@ -116,42 +126,51 @@ export function EtapaAberturaAviso() {
         {dadosAviso && (
           <div className="space-y-3 mb-6">
             <div className="bg-gray-50 rounded-lg p-4">
-              <div className="flex items-center gap-6 flex-wrap text-sm">
+              <div className="grid grid-cols-4 gap-4 text-sm">
                 <div>
-                  <span className="text-gray-600">Aviso:</span> <span className="text-gray-900 font-semibold">{dadosAviso.numeroAviso}</span>
+                  <div className="text-gray-600 mb-1">Número do Aviso</div>
+                  <div className="text-gray-900 font-semibold">{dadosAviso.numeroAviso}</div>
                 </div>
                 <div>
-                  <span className="text-gray-600">Ocorrência:</span> <span className="text-gray-900 font-medium">{dadosAviso.dataOcorrencia}</span>
+                  <div className="text-gray-600 mb-1">Data da Ocorrência</div>
+                  <div className="text-gray-900 font-medium">{dadosAviso.dataOcorrencia}</div>
                 </div>
                 <div>
-                  <span className="text-gray-600">Aviso:</span> <span className="text-gray-900 font-medium">{dadosAviso.dataAviso}</span>
+                  <div className="text-gray-600 mb-1">Data do Aviso</div>
+                  <div className="text-gray-900 font-medium">{dadosAviso.dataAviso}</div>
                 </div>
                 <div>
-                  <span className="text-gray-600">Registro:</span> <span className="text-gray-900 font-medium">{dadosAviso.dataRegistro}</span>
+                  <div className="text-gray-600 mb-1">Data de Registro</div>
+                  <div className="text-gray-900 font-medium">{dadosAviso.dataRegistro}</div>
                 </div>
               </div>
             </div>
             <div className="bg-gray-50 rounded-lg p-4">
-              <div className="flex items-center gap-6 flex-wrap text-sm">
+              <div className="grid grid-cols-4 gap-4 text-sm">
                 <div>
-                  <span className="text-gray-600">Natureza:</span> <span className="text-gray-900 font-medium">{dadosAviso.naturezaEvento}</span>
+                  <div className="text-gray-600 mb-1">Natureza do Evento</div>
+                  <div className="text-gray-900 font-medium">{dadosAviso.naturezaEvento}</div>
                 </div>
                 <div>
-                  <span className="text-gray-600">Causa:</span> <span className="text-gray-900 font-medium">{dadosAviso.causa}</span>
+                  <div className="text-gray-600 mb-1">Causa</div>
+                  <div className="text-gray-900 font-medium">{dadosAviso.causa}</div>
                 </div>
                 <div>
-                  <span className="text-gray-600">Tipo:</span> <span className="text-gray-900 font-medium">{dadosAviso.tipoEvento}</span>
+                  <div className="text-gray-600 mb-1">Tipo de Evento</div>
+                  <div className="text-gray-900 font-medium">{dadosAviso.tipoEvento}</div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-gray-600">Abertura Automática:</span>
-                  {dadosAviso.aberturaAutomatica ? (
-                    <>
-                      <Check className="w-4 h-4 text-green-500" />
-                      <span className="text-green-700 font-medium">Sim</span>
-                    </>
-                  ) : (
-                    <span className="text-gray-700 font-medium">Não</span>
-                  )}
+                <div>
+                  <div className="text-gray-600 mb-1">Abertura Automática</div>
+                  <div className="flex items-center gap-1">
+                    {dadosAviso.aberturaAutomatica ? (
+                      <>
+                        <Check className="w-4 h-4 text-green-500" />
+                        <span className="text-green-700 font-medium">Sim</span>
+                      </>
+                    ) : (
+                      <span className="text-gray-700 font-medium">Não</span>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
@@ -174,29 +193,36 @@ export function EtapaAberturaAviso() {
               )}
             </div>
 
-            <div className="flex items-center gap-6 flex-wrap text-sm">
+            <div className="grid grid-cols-4 gap-4 text-sm">
               <div>
-                <span className="text-gray-600">SLA Total:</span> <span className="text-gray-900 font-semibold">{sla.slaTotal} dias</span>
+                <div className="text-gray-600 mb-1">SLA Total</div>
+                <div className="text-gray-900 font-semibold">{sla.slaTotal} dias</div>
               </div>
               <div>
-                <span className="text-gray-600">Consumido:</span> <span className="text-gray-900 font-medium">{sla.slaConsumido} dias</span>
+                <div className="text-gray-600 mb-1">Dias Consumidos</div>
+                <div className="text-gray-900 font-medium">{sla.slaConsumido} dias</div>
               </div>
               <div>
-                <span className="text-gray-600">Restante:</span> <span className={`font-semibold ${sla.diasRestantes <= 5 ? 'text-red-600' : 'text-green-600'}`}>{sla.diasRestantes} dias</span>
+                <div className="text-gray-600 mb-1">Dias Restantes</div>
+                <div className={`font-semibold ${sla.diasRestantes <= 5 ? 'text-red-600' : 'text-green-600'}`}>
+                  {sla.diasRestantes} dias
+                </div>
               </div>
-              <div className="flex items-center gap-1">
-                <span className="text-gray-600">Status:</span>
-                {sla.slaSuspenso ? (
-                  <>
-                    <Pause className="w-4 h-4 text-yellow-600" />
-                    <span className="text-yellow-700 font-medium">Suspenso</span>
-                  </>
-                ) : (
-                  <>
-                    <Play className="w-4 h-4 text-green-600" />
-                    <span className="text-green-700 font-medium">Em andamento</span>
-                  </>
-                )}
+              <div>
+                <div className="text-gray-600 mb-1">Status</div>
+                <div className="flex items-center gap-1">
+                  {sla.slaSuspenso ? (
+                    <>
+                      <Pause className="w-4 h-4 text-yellow-600" />
+                      <span className="text-yellow-700 font-medium">Suspenso</span>
+                    </>
+                  ) : (
+                    <>
+                      <Play className="w-4 h-4 text-green-600" />
+                      <span className="text-green-700 font-medium">Em andamento</span>
+                    </>
+                  )}
+                </div>
               </div>
             </div>
 

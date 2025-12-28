@@ -107,24 +107,24 @@ export function EtapaDadosSegurado({ sinistro }: EtapaDadosSeguradoProps) {
 
       {/* Informações extraídas pelo agente */}
       <div className="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg">
-        <div className="flex items-center gap-2 mb-3">
+        <div className="flex items-center gap-2 mb-4">
           <Check className="w-5 h-5 text-green-600" />
           <h4 className="text-gray-900 font-medium">Dados validados pelo agente</h4>
         </div>
         <div className="grid grid-cols-2 gap-4 text-sm">
           <div>
-            <span className="text-gray-600">Origem: </span>
-            <span className="text-gray-900">Comunicado de Sinistro + Documentos</span>
+            <div className="text-gray-600 mb-1">Origem dos Dados</div>
+            <div className="text-gray-900">Comunicado de Sinistro + Documentos</div>
           </div>
           <div>
-            <span className="text-gray-600">Confiança: </span>
-            <span className="text-green-600 font-medium">98%</span>
+            <div className="text-gray-600 mb-1">Nível de Confiança</div>
+            <div className="text-green-600 font-medium">98%</div>
           </div>
           <div className="col-span-2">
-            <span className="text-gray-600">Observação: </span>
-            <span className="text-gray-900">
+            <div className="text-gray-600 mb-1">Observação</div>
+            <div className="text-gray-900">
               Todos os dados conferem com os documentos enviados. CPF validado na Receita Federal.
-            </span>
+            </div>
           </div>
         </div>
       </div>

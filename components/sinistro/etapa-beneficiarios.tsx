@@ -49,18 +49,18 @@ export function EtapaBeneficiarios() {
 
             <div className="grid grid-cols-3 gap-4 text-sm">
               <div>
-                <span className="text-gray-600">Parentesco: </span>
-                <span className="text-gray-900">{beneficiario.parentesco}</span>
+                <div className="text-gray-600 mb-1">Parentesco</div>
+                <div className="text-gray-900">{beneficiario.parentesco}</div>
               </div>
               <div>
-                <span className="text-gray-600">Percentual: </span>
-                <span className="text-gray-900 font-medium">{beneficiario.percentual}%</span>
+                <div className="text-gray-600 mb-1">Percentual</div>
+                <div className="text-gray-900 font-medium">{beneficiario.percentual}%</div>
               </div>
               <div>
-                <span className="text-gray-600">Dados Bancários: </span>
-                <span className={beneficiario.dadosBancarios ? 'text-green-600' : 'text-yellow-600'}>
+                <div className="text-gray-600 mb-1">Dados Bancários</div>
+                <div className={beneficiario.dadosBancarios ? 'text-green-600' : 'text-yellow-600'}>
                   {beneficiario.dadosBancarios ? 'Completo' : 'Pendente'}
-                </span>
+                </div>
               </div>
             </div>
           </div>
