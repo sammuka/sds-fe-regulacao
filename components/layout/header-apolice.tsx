@@ -31,57 +31,53 @@ export function HeaderApolice({ apolice, sla }: HeaderApoliceProps) {
 
   return (
     <div className="fixed top-[72px] left-0 right-0 z-40 px-4 pt-3 pb-3 bg-[#e1e1e1]">
-      <div className="bg-gradient-to-r from-[#6ec8e5] to-[#1c7b99] px-4 py-2 max-w-[1200px] mx-auto rounded-xl shadow-md">
-        <div className="flex items-center justify-between gap-4">
-          {/* Informações da Apólice */}
-          <div className="flex items-center gap-6 text-white font-['Poppins'] text-xs flex-wrap">
-            <div>
-              <div className="text-[10px] text-white/70 mb-0.5">Apólice:</div>
-              <div className="font-semibold">{apolice.numero}</div>
-            </div>
-            <div>
-              <div className="text-[10px] text-white/70 mb-0.5">Segurado:</div>
-              <div className="font-semibold">{apolice.segurado}</div>
-            </div>
-            <div>
-              <div className="text-[10px] text-white/70 mb-0.5">Vigência:</div>
-              <div className="font-medium">{apolice.inicioVigencia} a {apolice.terminoVigencia}</div>
-            </div>
-            <div>
-              <div className="text-[10px] text-white/70 mb-0.5">Ramo:</div>
-              <div className="font-semibold">{apolice.ramo}</div>
-            </div>
-            <div>
-              <div className="text-[10px] text-white/70 mb-0.5">Produto:</div>
-              <div className="font-semibold">{apolice.produto}</div>
-            </div>
-            <div>
-              <div className="text-[10px] text-white/70 mb-0.5">Emissão:</div>
-              <div className="font-medium">{apolice.dataEmissao}</div>
-            </div>
-          </div>
+      <div className="bg-gradient-to-r from-[#6ec8e5] to-[#1c7b99] px-4 py-3 max-w-[1200px] mx-auto rounded-xl shadow-md flex items-center justify-between gap-4">
+        {/* Informações da Apólice - Layout Inline */}
+        <div className="text-white font-['Poppins'] text-xs flex-1 min-w-0">
+          <span className="text-white/70">Apólice: </span>
+          <span className="font-semibold">{apolice.numero}</span>
+          <span className="mx-3 text-white/50">|</span>
 
-          {/* SLA */}
-          {sla && (
-            <div className={`flex items-center gap-2 px-3 py-2 rounded-lg shrink-0 ${getSLABgColor()}`}>
-              <Clock className={`w-4 h-4 ${getSLAColor()}`} />
-              <div>
-                <p className="text-[10px] font-['Poppins'] text-[#707070]">Prazo Regulatório</p>
-                <p className={`font-['Poppins'] font-bold text-base leading-tight ${getSLAColor()}`}>
-                  {sla.slaSuspenso ? 'Suspenso' : `${sla.diasRestantes} dias`}
-                </p>
-              </div>
-              {sla.slaSuspenso && sla.motivoSuspensao && (
-                <div className="flex items-center gap-1">
-                  <AlertCircle className="w-3 h-3 text-[#f59e0b]" />
-                  <span className="text-[10px] text-[#707070] font-['Poppins'] max-w-[80px] truncate">
-                    {sla.motivoSuspensao}
-                  </span>
-                </div>
-              )}
-            </div>
-          )}
+          <span className="text-white/70">Segurado: </span>
+          <span className="font-semibold">{apolice.segurado}</span>
+          <span className="mx-3 text-white/50">|</span>
+
+          <span className="text-white/70">Vigência: </span>
+          <span className="font-medium">{apolice.inicioVigencia} a {apolice.terminoVigencia}</span>
+          <span className="mx-3 text-white/50">|</span>
+
+          <span className="text-white/70">Ramo: </span>
+          <span className="font-semibold">{apolice.ramo}</span>
+          <span className="mx-3 text-white/50">|</span>
+
+          <span className="text-white/70">Produto: </span>
+          <span className="font-semibold">{apolice.produto}</span>
+          <span className="mx-3 text-white/50">|</span>
+
+          <span className="text-white/70">Emissão: </span>
+          <span className="font-medium">{apolice.dataEmissao}</span>
         </div>
+
+        {/* SLA */}
+        {sla && (
+          <div className={`flex items-center gap-2 px-3 py-2 rounded-lg shrink-0 ${getSLABgColor()}`}>
+            <Clock className={`w-4 h-4 ${getSLAColor()}`} />
+            <div>
+              <p className="text-[10px] font-['Poppins'] text-[#707070]">Prazo Regulatório</p>
+              <p className={`font-['Poppins'] font-bold text-base leading-tight ${getSLAColor()}`}>
+                {sla.slaSuspenso ? 'Suspenso' : `${sla.diasRestantes} dias`}
+              </p>
+            </div>
+            {sla.slaSuspenso && sla.motivoSuspensao && (
+              <div className="flex items-center gap-1">
+                <AlertCircle className="w-3 h-3 text-[#f59e0b]" />
+                <span className="text-[10px] text-[#707070] font-['Poppins'] max-w-[80px] truncate">
+                  {sla.motivoSuspensao}
+                </span>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   )
