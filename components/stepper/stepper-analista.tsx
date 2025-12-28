@@ -22,7 +22,7 @@ export function StepperAnalista({ className }: StepperAnalistaProps) {
 
   return (
     <div className={cn('bg-white rounded-lg shadow-sm', className)}>
-      <div className="flex items-center border-b border-gray-200 overflow-x-auto">
+      <div className="flex items-center border-b border-[var(--cinza-200)] overflow-x-auto">
         {ETAPAS_STEPPER.map((etapa) => {
           const Icon = iconMap[etapa.numero]
           const isCompleted = estadoStepper.etapasCompletas.includes(etapa.numero)
@@ -37,19 +37,19 @@ export function StepperAnalista({ className }: StepperAnalistaProps) {
                 disabled={isBlocked && !canNavigate}
                 className={cn(
                   'w-full px-4 py-4 flex items-center gap-3 transition-colors',
-                  isCurrent && 'bg-[#1CB5C8]/10 border-b-2 border-[#1CB5C8]',
-                  isCompleted && !isCurrent && 'bg-green-50',
-                  !isCurrent && !isCompleted && !isBlocked && 'hover:bg-gray-50',
+                  isCurrent && 'bg-[var(--azul-principal-50)] border-b-2 border-[var(--azul-principal-500)]',
+                  isCompleted && !isCurrent && 'bg-[var(--verde-50)]',
+                  !isCurrent && !isCompleted && !isBlocked && 'hover:bg-[var(--cinza-50)]',
                   isBlocked && 'opacity-50 cursor-not-allowed'
                 )}
               >
                 <div
                   className={cn(
                     'w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0',
-                    isCompleted && 'bg-green-500 text-white',
-                    isCurrent && !isCompleted && 'bg-[#1CB5C8] text-white',
-                    !isCurrent && !isCompleted && !isBlocked && 'bg-gray-200 text-gray-600',
-                    isBlocked && 'bg-gray-100 text-gray-400'
+                    isCompleted && 'bg-[var(--verde-500)] text-white',
+                    isCurrent && !isCompleted && 'bg-[var(--azul-principal-500)] text-white',
+                    !isCurrent && !isCompleted && !isBlocked && 'bg-[var(--cinza-200)] text-[var(--cinza-600)]',
+                    isBlocked && 'bg-[var(--cinza-100)] text-[var(--cinza-400)]'
                   )}
                 >
                   {isBlocked ? (
@@ -64,9 +64,9 @@ export function StepperAnalista({ className }: StepperAnalistaProps) {
                   <div
                     className={cn(
                       'text-sm',
-                      isCurrent && 'text-[#1CB5C8]',
-                      isBlocked && 'text-gray-400',
-                      !isCurrent && !isBlocked && 'text-gray-600'
+                      isCurrent && 'text-[var(--azul-principal-500)]',
+                      isBlocked && 'text-[var(--cinza-400)]',
+                      !isCurrent && !isBlocked && 'text-[var(--cinza-600)]'
                     )}
                   >
                     Etapa {etapa.numero}
@@ -74,9 +74,9 @@ export function StepperAnalista({ className }: StepperAnalistaProps) {
                   <div
                     className={cn(
                       'text-sm font-medium',
-                      isCurrent && 'text-gray-900',
-                      isBlocked && 'text-gray-400',
-                      !isCurrent && !isBlocked && 'text-gray-700'
+                      isCurrent && 'text-[var(--cinza-900)]',
+                      isBlocked && 'text-[var(--cinza-400)]',
+                      !isCurrent && !isBlocked && 'text-[var(--cinza-700)]'
                     )}
                   >
                     {etapa.nome}
@@ -103,16 +103,16 @@ export function StepperProgress({ etapaAtual, etapasCompletas }: StepperProgress
   return (
     <div className="mb-6">
       <div className="flex items-center justify-between mb-2">
-        <span className="text-sm text-gray-600">
+        <span className="text-sm text-[var(--cinza-600)]">
           Etapa {etapaAtual} de {totalEtapas - 1}
         </span>
-        <span className="text-sm text-gray-600">
+        <span className="text-sm text-[var(--cinza-600)]">
           {Math.round(progresso)}% concluído
         </span>
       </div>
-      <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+      <div className="h-2 bg-[var(--cinza-200)] rounded-full overflow-hidden">
         <div
-          className="h-full bg-gradient-to-r from-[#1CB5C8] to-[#5c6bc0] rounded-full transition-all duration-300"
+          className="h-full bg-[var(--azul-principal-500)] rounded-full transition-all duration-300"
           style={{ width: `${progresso}%` }}
         />
       </div>

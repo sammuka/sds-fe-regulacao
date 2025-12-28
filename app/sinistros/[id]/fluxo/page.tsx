@@ -21,8 +21,8 @@ export default function FluxoJornadaPage() {
 
   if (!sinistroAtual) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-gray-500">Carregando...</div>
+      <div className="min-h-screen bg-[var(--cinza-50)] flex items-center justify-center">
+        <div className="text-[var(--cinza-500)]">Carregando...</div>
       </div>
     )
   }
@@ -51,22 +51,22 @@ export default function FluxoJornadaPage() {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'concluida':
-        return 'bg-green-500 text-white border-green-500'
+        return 'bg-[var(--verde-500)] text-white border-[var(--verde-500)]'
       case 'em-andamento':
-        return 'bg-blue-500 text-white border-blue-500 animate-pulse'
+        return 'bg-[var(--azul-principal-500)] text-white border-[var(--azul-principal-500)] animate-pulse'
       default:
-        return 'bg-gray-100 text-gray-400 border-gray-300'
+        return 'bg-[var(--cinza-100)] text-[var(--cinza-400)] border-[var(--cinza-300)]'
     }
   }
 
   const getLineColor = (status: string, nextStatus: string) => {
-    if (status === 'concluida') return 'bg-green-500'
-    if (status === 'em-andamento') return 'bg-gradient-to-b from-blue-500 to-gray-300'
-    return 'bg-gray-300'
+    if (status === 'concluida') return 'bg-[var(--verde-500)]'
+    if (status === 'em-andamento') return 'bg-[var(--azul-principal-300)]'
+    return 'bg-[var(--cinza-300)]'
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[var(--cinza-50)]">
       <TopBar sinistroNumero={sinistroAtual.id} />
       <HeaderApolice apolice={apolice} sla={sinistroAtual.sla} />
 
@@ -74,7 +74,7 @@ export default function FluxoJornadaPage() {
         <div className="w-full max-w-[1200px] mx-auto">
           <button
             onClick={() => router.push(`/sinistros/${sinistroAtual.id}`)}
-            className="flex items-center gap-2 text-gray-600 hover:text-gray-900 my-4 font-['Poppins']"
+            className="flex items-center gap-2 text-[var(--cinza-600)] hover:text-[var(--cinza-900)] my-4 font-['Poppins']"
           >
             <ChevronLeft className="w-5 h-5" />
             Voltar
@@ -82,9 +82,9 @@ export default function FluxoJornadaPage() {
 
           <div className="bg-white rounded-lg shadow-sm p-6">
             <div className="mb-8">
-              <h2 className="text-gray-900 text-xl mb-1">Fluxo Visual da Jornada</h2>
-              <p className="text-gray-600">
-                Visualização dinâmica das etapas do processo de regulação
+              <h2 className="text-[var(--cinza-900)] text-xl mb-1">Fluxo Visual da Jornada</h2>
+              <p className="text-[var(--cinza-600)]">
+                Visualizacao dinamica das etapas do processo de regulacao
               </p>
             </div>
 
@@ -96,9 +96,9 @@ export default function FluxoJornadaPage() {
                   <div
                     className={cn(
                       'w-full border-2 rounded-lg p-4 transition-all',
-                      etapa.status === 'concluida' && 'border-green-500 bg-green-50',
-                      etapa.status === 'em-andamento' && 'border-blue-500 bg-blue-50 shadow-lg',
-                      etapa.status === 'pendente' && 'border-gray-300 bg-gray-50'
+                      etapa.status === 'concluida' && 'border-[var(--verde-500)] bg-[var(--verde-50)]',
+                      etapa.status === 'em-andamento' && 'border-[var(--azul-principal-500)] bg-[var(--azul-principal-50)] shadow-lg',
+                      etapa.status === 'pendente' && 'border-[var(--cinza-300)] bg-[var(--cinza-50)]'
                     )}
                   >
                     <div className="flex items-center gap-4">
@@ -112,30 +112,30 @@ export default function FluxoJornadaPage() {
                         {getStatusIcon(etapa.status)}
                       </div>
 
-                      {/* Informações */}
+                      {/* Informacoes */}
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-1">
-                          <span className="text-gray-900 font-medium">{etapa.nome}</span>
+                          <span className="text-[var(--cinza-900)] font-medium">{etapa.nome}</span>
                           {etapa.executadoPorAgente && (
-                            <span className="px-2 py-0.5 bg-[#1CB5C8] text-white rounded text-xs flex items-center gap-1">
+                            <span className="px-2 py-0.5 bg-[var(--azul-principal-500)] text-white rounded text-xs flex items-center gap-1">
                               <Cpu className="w-3 h-3" />
                               Agent
                             </span>
                           )}
                           {etapa.aguardandoValidacao && (
-                            <span className="px-2 py-0.5 bg-yellow-500 text-white rounded text-xs">
-                              Aguardando Validação
+                            <span className="px-2 py-0.5 bg-[var(--amarelo-500)] text-white rounded text-xs">
+                              Aguardando Validacao
                             </span>
                           )}
                         </div>
 
-                        <div className="flex items-center gap-4 text-sm text-gray-600">
+                        <div className="flex items-center gap-4 text-sm text-[var(--cinza-600)]">
                           {etapa.dataInicio && (
-                            <span>Início: {etapa.dataInicio}</span>
+                            <span>Inicio: {etapa.dataInicio}</span>
                           )}
                           {etapa.dataConclusao && (
-                            <span className="text-green-600">
-                              Conclusão: {etapa.dataConclusao}
+                            <span className="text-[var(--verde-600)]">
+                              Conclusao: {etapa.dataConclusao}
                             </span>
                           )}
                         </div>
@@ -143,21 +143,21 @@ export default function FluxoJornadaPage() {
                         {/* Indicador de executor */}
                         <div className="mt-2 flex items-center gap-2 text-xs">
                           {etapa.executadoPorAgente ? (
-                            <span className="flex items-center gap-1 text-[#1CB5C8]">
+                            <span className="flex items-center gap-1 text-[var(--azul-principal-500)]">
                               <Cpu className="w-3 h-3" />
                               Executado automaticamente pelo agente
                             </span>
                           ) : (
-                            <span className="flex items-center gap-1 text-pink-500">
+                            <span className="flex items-center gap-1 text-[var(--vermelho-400)]">
                               <User className="w-3 h-3" />
-                              Ação humana necessária
+                              Acao humana necessaria
                             </span>
                           )}
                         </div>
                       </div>
 
-                      {/* Número da etapa */}
-                      <div className="text-2xl font-bold text-gray-200">{etapa.numero}</div>
+                      {/* Numero da etapa */}
+                      <div className="text-2xl font-bold text-[var(--cinza-200)]">{etapa.numero}</div>
                     </div>
                   </div>
 
@@ -178,28 +178,28 @@ export default function FluxoJornadaPage() {
             </div>
 
             {/* Legenda */}
-            <div className="mt-8 pt-6 border-t border-gray-200">
-              <h3 className="text-gray-700 font-medium mb-3">Legenda</h3>
+            <div className="mt-8 pt-6 border-t border-[var(--cinza-200)]">
+              <h3 className="text-[var(--cinza-700)] font-medium mb-3">Legenda</h3>
               <div className="flex items-center gap-6 flex-wrap">
                 <div className="flex items-center gap-2">
-                  <div className="w-4 h-4 rounded-full bg-green-500" />
-                  <span className="text-sm text-gray-600">Concluída</span>
+                  <div className="w-4 h-4 rounded-full bg-[var(--verde-500)]" />
+                  <span className="text-sm text-[var(--cinza-600)]">Concluida</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-4 h-4 rounded-full bg-blue-500 animate-pulse" />
-                  <span className="text-sm text-gray-600">Em andamento</span>
+                  <div className="w-4 h-4 rounded-full bg-[var(--azul-principal-500)] animate-pulse" />
+                  <span className="text-sm text-[var(--cinza-600)]">Em andamento</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-4 h-4 rounded-full bg-gray-300" />
-                  <span className="text-sm text-gray-600">Pendente</span>
+                  <div className="w-4 h-4 rounded-full bg-[var(--cinza-300)]" />
+                  <span className="text-sm text-[var(--cinza-600)]">Pendente</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Cpu className="w-4 h-4 text-[#1CB5C8]" />
-                  <span className="text-sm text-gray-600">Executado pelo Agent</span>
+                  <Cpu className="w-4 h-4 text-[var(--azul-principal-500)]" />
+                  <span className="text-sm text-[var(--cinza-600)]">Executado pelo Agent</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <User className="w-4 h-4 text-pink-500" />
-                  <span className="text-sm text-gray-600">Ação humana</span>
+                  <User className="w-4 h-4 text-[var(--vermelho-400)]" />
+                  <span className="text-sm text-[var(--cinza-600)]">Acao humana</span>
                 </div>
               </div>
             </div>

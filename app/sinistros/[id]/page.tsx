@@ -26,8 +26,8 @@ export default function DetalheSinistroPage() {
 
   if (!sinistroAtual) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-gray-500">Carregando sinistro...</div>
+      <div className="min-h-screen bg-[var(--cinza-50)] flex items-center justify-center">
+        <div className="text-[var(--cinza-500)]">Carregando sinistro...</div>
       </div>
     )
   }
@@ -73,7 +73,7 @@ export default function DetalheSinistroPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#f5f5f5]">
+    <div className="min-h-screen bg-[var(--cinza-100)]">
       <TopBar sinistroNumero={sinistroAtual.id} />
       <HeaderApolice apolice={apolice} sla={sinistroAtual.sla} />
 
@@ -83,7 +83,7 @@ export default function DetalheSinistroPage() {
           {/* Botão voltar */}
           <button
             onClick={() => router.push('/sinistros')}
-            className="flex items-center gap-2 text-gray-600 hover:text-gray-900 my-4 font-['Poppins']"
+            className="flex items-center gap-2 text-[var(--cinza-600)] hover:text-[var(--cinza-900)] my-4 font-['Poppins']"
           >
             <ChevronLeft className="w-5 h-5" />
             Voltar para a fila
@@ -106,7 +106,7 @@ export default function DetalheSinistroPage() {
             <button
               onClick={handleEtapaAnterior}
               disabled={estadoStepper.etapaAtual === 0}
-              className="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed font-['Poppins']"
+              className="sds-btn-secondary disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Anterior
             </button>
@@ -114,7 +114,7 @@ export default function DetalheSinistroPage() {
             <button
               onClick={handleProximaEtapa}
               disabled={estadoStepper.etapaAtual === 4}
-              className="px-6 py-2 bg-[#239dc5] text-white rounded-lg hover:bg-[#208fb3] disabled:opacity-50 disabled:cursor-not-allowed font-['Poppins']"
+              className="sds-btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {estadoStepper.etapaAtual === 4 ? 'Concluir Regulação' : 'Próxima'}
             </button>

@@ -39,8 +39,8 @@ export default function AvaliacaoTecnicaPage() {
 
   if (!sinistroAtual) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-gray-500">Carregando...</div>
+      <div className="min-h-screen bg-[var(--cinza-50)] flex items-center justify-center">
+        <div className="text-[var(--cinza-500)]">Carregando...</div>
       </div>
     )
   }
@@ -79,14 +79,14 @@ export default function AvaliacaoTecnicaPage() {
   }
 
   const statusPericiaConfig = {
-    'nao-iniciada': { label: 'Não Iniciada', color: 'bg-gray-100 text-gray-700' },
-    'enviada': { label: 'Enviada', color: 'bg-blue-100 text-blue-700' },
-    'aguardando-retorno': { label: 'Aguardando Retorno', color: 'bg-yellow-100 text-yellow-700' },
-    'concluida': { label: 'Concluída', color: 'bg-green-100 text-green-700' },
+    'nao-iniciada': { label: 'Nao Iniciada', color: 'bg-[var(--cinza-100)] text-[var(--cinza-700)]' },
+    'enviada': { label: 'Enviada', color: 'bg-[var(--azul-principal-100)] text-[var(--azul-principal-700)]' },
+    'aguardando-retorno': { label: 'Aguardando Retorno', color: 'bg-[var(--amarelo-100)] text-[var(--amarelo-700)]' },
+    'concluida': { label: 'Concluida', color: 'bg-[var(--verde-100)] text-[var(--verde-700)]' },
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[var(--cinza-50)]">
       <TopBar sinistroNumero={sinistroAtual.id} />
       <HeaderApolice apolice={apolice} sla={sinistroAtual.sla} />
 
@@ -94,28 +94,28 @@ export default function AvaliacaoTecnicaPage() {
         <div className="w-full max-w-[1200px] mx-auto">
           <button
             onClick={() => router.push(`/sinistros/${sinistroAtual.id}`)}
-            className="flex items-center gap-2 text-gray-600 hover:text-gray-900 my-4 font-['Poppins']"
+            className="flex items-center gap-2 text-[var(--cinza-600)] hover:text-[var(--cinza-900)] my-4 font-['Poppins']"
           >
             <ChevronLeft className="w-5 h-5" />
             Voltar
           </button>
 
-          {/* Ciclo da Perícia (se existir) */}
+          {/* Ciclo da Pericia (se existir) */}
           {cicloPericia && (
             <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
-                  <Clock className="w-5 h-5 text-purple-600" />
+                <div className="w-10 h-10 bg-[var(--cinza-100)] rounded-lg flex items-center justify-center">
+                  <Clock className="w-5 h-5 text-[var(--cinza-600)]" />
                 </div>
                 <div>
-                  <h2 className="text-gray-900 text-xl">Ciclo da Perícia</h2>
-                  <p className="text-sm text-gray-600">Acompanhamento do processo pericial</p>
+                  <h2 className="text-[var(--cinza-900)] text-xl">Ciclo da Pericia</h2>
+                  <p className="text-sm text-[var(--cinza-600)]">Acompanhamento do processo pericial</p>
                 </div>
               </div>
 
               <div className="grid grid-cols-4 gap-4 mb-4">
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <div className="text-xs text-gray-500 mb-1">Status</div>
+                <div className="bg-[var(--cinza-50)] rounded-lg p-4">
+                  <div className="text-xs text-[var(--cinza-500)] mb-1">Status</div>
                   <span className={cn(
                     'inline-flex px-2 py-1 rounded text-sm',
                     statusPericiaConfig[cicloPericia.status].color
@@ -123,99 +123,99 @@ export default function AvaliacaoTecnicaPage() {
                     {statusPericiaConfig[cicloPericia.status].label}
                   </span>
                 </div>
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <div className="text-xs text-gray-500 mb-1">Data de Envio</div>
-                  <div className="text-gray-900">{cicloPericia.dataEnvio || '-'}</div>
+                <div className="bg-[var(--cinza-50)] rounded-lg p-4">
+                  <div className="text-xs text-[var(--cinza-500)] mb-1">Data de Envio</div>
+                  <div className="text-[var(--cinza-900)]">{cicloPericia.dataEnvio || '-'}</div>
                 </div>
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <div className="text-xs text-gray-500 mb-1">Previsão de Retorno</div>
-                  <div className="text-gray-900">{cicloPericia.dataPrevistaRetorno || '-'}</div>
+                <div className="bg-[var(--cinza-50)] rounded-lg p-4">
+                  <div className="text-xs text-[var(--cinza-500)] mb-1">Previsao de Retorno</div>
+                  <div className="text-[var(--cinza-900)]">{cicloPericia.dataPrevistaRetorno || '-'}</div>
                 </div>
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <div className="text-xs text-gray-500 mb-1">Data de Retorno</div>
-                  <div className="text-gray-900">{cicloPericia.dataRetorno || 'Aguardando'}</div>
+                <div className="bg-[var(--cinza-50)] rounded-lg p-4">
+                  <div className="text-xs text-[var(--cinza-500)] mb-1">Data de Retorno</div>
+                  <div className="text-[var(--cinza-900)]">{cicloPericia.dataRetorno || 'Aguardando'}</div>
                 </div>
               </div>
 
               {cicloPericia.especialistaAtribuido && (
-                <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                <div className="p-4 bg-[var(--azul-principal-50)] border border-[var(--azul-principal-200)] rounded-lg">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
+                    <div className="w-10 h-10 bg-[var(--azul-principal-500)] rounded-full flex items-center justify-center">
                       <User className="w-5 h-5 text-white" />
                     </div>
                     <div>
-                      <div className="text-gray-900 font-medium">{cicloPericia.especialistaAtribuido.nome}</div>
-                      <div className="text-sm text-blue-700">{cicloPericia.especialistaAtribuido.area}</div>
+                      <div className="text-[var(--cinza-900)] font-medium">{cicloPericia.especialistaAtribuido.nome}</div>
+                      <div className="text-sm text-[var(--azul-principal-700)]">{cicloPericia.especialistaAtribuido.area}</div>
                     </div>
                   </div>
                 </div>
               )}
 
               {cicloPericia.parecerAgente && (
-                <div className="mt-4 p-4 bg-[#1CB5C8]/10 border border-[#1CB5C8] rounded-lg">
+                <div className="mt-4 p-4 bg-[var(--azul-principal-50)] border border-[var(--azul-principal-300)] rounded-lg">
                   <div className="flex items-center gap-2 mb-2">
-                    <Cpu className="w-4 h-4 text-[#1CB5C8]" />
-                    <span className="text-[#1CB5C8] font-medium">Parecer Prévio do Agente Especialista</span>
-                    <span className="text-sm text-gray-500">
-                      (Confiança: {cicloPericia.parecerAgente.confianca}%)
+                    <Cpu className="w-4 h-4 text-[var(--azul-principal-500)]" />
+                    <span className="text-[var(--azul-principal-600)] font-medium">Parecer Previo do Agente Especialista</span>
+                    <span className="text-sm text-[var(--cinza-500)]">
+                      (Confianca: {cicloPericia.parecerAgente.confianca}%)
                     </span>
                   </div>
-                  <p className="text-gray-700">{cicloPericia.parecerAgente.texto}</p>
+                  <p className="text-[var(--cinza-700)]">{cicloPericia.parecerAgente.texto}</p>
                 </div>
               )}
             </div>
           )}
 
-          {/* Seção Judicial (se existir) */}
+          {/* Secao Judicial (se existir) */}
           {dadosJudicial?.possuiProcesso && (
-            <div className="bg-white rounded-lg shadow-sm p-6 mb-6 border-l-4 border-red-500">
+            <div className="bg-white rounded-lg shadow-sm p-6 mb-6 border-l-4 border-[var(--vermelho-500)]">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
-                  <Scale className="w-5 h-5 text-red-600" />
+                <div className="w-10 h-10 bg-[var(--vermelho-100)] rounded-lg flex items-center justify-center">
+                  <Scale className="w-5 h-5 text-[var(--vermelho-600)]" />
                 </div>
                 <div>
-                  <h2 className="text-gray-900 text-xl">Dimensão Judicial</h2>
-                  <p className="text-sm text-red-600">Este sinistro possui processo judicial vinculado</p>
+                  <h2 className="text-[var(--cinza-900)] text-xl">Dimensao Judicial</h2>
+                  <p className="text-sm text-[var(--vermelho-600)]">Este sinistro possui processo judicial vinculado</p>
                 </div>
               </div>
 
               <div className="grid grid-cols-3 gap-4 mb-4">
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <div className="text-xs text-gray-500 mb-1">Número do Processo</div>
-                  <div className="text-gray-900 font-mono text-sm">{dadosJudicial.numeroProcesso}</div>
+                <div className="bg-[var(--cinza-50)] rounded-lg p-4">
+                  <div className="text-xs text-[var(--cinza-500)] mb-1">Numero do Processo</div>
+                  <div className="text-[var(--cinza-900)] font-mono text-sm">{dadosJudicial.numeroProcesso}</div>
                 </div>
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <div className="text-xs text-gray-500 mb-1">Vara</div>
-                  <div className="text-gray-900">{dadosJudicial.vara}</div>
+                <div className="bg-[var(--cinza-50)] rounded-lg p-4">
+                  <div className="text-xs text-[var(--cinza-500)] mb-1">Vara</div>
+                  <div className="text-[var(--cinza-900)]">{dadosJudicial.vara}</div>
                 </div>
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <div className="text-xs text-gray-500 mb-1">Juízo</div>
-                  <div className="text-gray-900">{dadosJudicial.juizo}</div>
+                <div className="bg-[var(--cinza-50)] rounded-lg p-4">
+                  <div className="text-xs text-[var(--cinza-500)] mb-1">Juizo</div>
+                  <div className="text-[var(--cinza-900)]">{dadosJudicial.juizo}</div>
                 </div>
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <div className="text-xs text-gray-500 mb-1">Status Judicial</div>
-                  <div className="text-gray-900">{dadosJudicial.statusJudicial}</div>
+                <div className="bg-[var(--cinza-50)] rounded-lg p-4">
+                  <div className="text-xs text-[var(--cinza-500)] mb-1">Status Judicial</div>
+                  <div className="text-[var(--cinza-900)]">{dadosJudicial.statusJudicial}</div>
                 </div>
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <div className="text-xs text-gray-500 mb-1">Probabilidade de Perda</div>
+                <div className="bg-[var(--cinza-50)] rounded-lg p-4">
+                  <div className="text-xs text-[var(--cinza-500)] mb-1">Probabilidade de Perda</div>
                   <div className={cn(
                     'font-medium flex items-center gap-1',
-                    (dadosJudicial.probabilidadePerda || 0) > 50 ? 'text-red-600' : 'text-yellow-600'
+                    (dadosJudicial.probabilidadePerda || 0) > 50 ? 'text-[var(--vermelho-600)]' : 'text-[var(--amarelo-600)]'
                   )}>
                     <Percent className="w-4 h-4" />
                     {dadosJudicial.probabilidadePerda}%
                   </div>
                 </div>
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <div className="text-xs text-gray-500 mb-1">Data de Entrada</div>
-                  <div className="text-gray-900">{dadosJudicial.dataEntrada}</div>
+                <div className="bg-[var(--cinza-50)] rounded-lg p-4">
+                  <div className="text-xs text-[var(--cinza-500)] mb-1">Data de Entrada</div>
+                  <div className="text-[var(--cinza-900)]">{dadosJudicial.dataEntrada}</div>
                 </div>
               </div>
 
               {dadosJudicial.observacoes && (
-                <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
-                  <div className="text-xs text-red-600 mb-1">Observações</div>
-                  <div className="text-gray-700">{dadosJudicial.observacoes}</div>
+                <div className="p-4 bg-[var(--vermelho-50)] border border-[var(--vermelho-200)] rounded-lg">
+                  <div className="text-xs text-[var(--vermelho-600)] mb-1">Observacoes</div>
+                  <div className="text-[var(--cinza-700)]">{dadosJudicial.observacoes}</div>
                 </div>
               )}
             </div>
@@ -225,91 +225,91 @@ export default function AvaliacaoTecnicaPage() {
             {/* Parecer do Agente */}
             <div className="bg-white rounded-lg shadow-sm p-6">
               <div className="flex items-center gap-2 mb-4">
-                <div className="w-10 h-10 bg-[#1CB5C8]/10 rounded-lg flex items-center justify-center">
-                  <FileText className="w-5 h-5 text-[#1CB5C8]" />
+                <div className="w-10 h-10 bg-[var(--azul-principal-50)] rounded-lg flex items-center justify-center">
+                  <FileText className="w-5 h-5 text-[var(--azul-principal-500)]" />
                 </div>
                 <div>
-                  <h2 className="text-gray-900">Parecer Prévio do Agente</h2>
-                  <AgentIndicator type="validated" label="Análise automática concluída" />
+                  <h2 className="text-[var(--cinza-900)]">Parecer Previo do Agente</h2>
+                  <AgentIndicator type="validated" label="Analise automatica concluida" />
                 </div>
               </div>
 
               <div className="space-y-4">
                 <div>
-                  <div className="text-sm text-gray-600 mb-1">Tipo de Sinistro</div>
-                  <div className="text-gray-900">{parecerAgente.tipo}</div>
+                  <div className="text-sm text-[var(--cinza-600)] mb-1">Tipo de Sinistro</div>
+                  <div className="text-[var(--cinza-900)]">{parecerAgente.tipo}</div>
                 </div>
 
                 <div>
-                  <div className="text-sm text-gray-600 mb-1">Cobertura Aplicável</div>
-                  <div className="text-gray-900">{parecerAgente.coberturaAplicavel}</div>
+                  <div className="text-sm text-[var(--cinza-600)] mb-1">Cobertura Aplicavel</div>
+                  <div className="text-[var(--cinza-900)]">{parecerAgente.coberturaAplicavel}</div>
                 </div>
 
                 <div>
-                  <div className="text-sm text-gray-600 mb-1">Valor da Indenização</div>
-                  <div className="text-gray-900">{formatCurrency(parecerAgente.valorIndenizacao)}</div>
+                  <div className="text-sm text-[var(--cinza-600)] mb-1">Valor da Indenizacao</div>
+                  <div className="text-[var(--cinza-900)]">{formatCurrency(parecerAgente.valorIndenizacao)}</div>
                 </div>
 
                 <div>
-                  <div className="text-sm text-gray-600 mb-1">Análise de Risco</div>
-                  <span className="inline-flex items-center gap-1 px-2 py-1 bg-green-100 text-green-700 rounded text-sm">
+                  <div className="text-sm text-[var(--cinza-600)] mb-1">Analise de Risco</div>
+                  <span className="inline-flex items-center gap-1 px-2 py-1 bg-[var(--verde-100)] text-[var(--verde-700)] rounded text-sm">
                     <Check className="w-3 h-3" />
                     {parecerAgente.analiseRisco}
                   </span>
                 </div>
 
                 <div>
-                  <div className="text-sm text-gray-600 mb-1">Recomendação do Agente</div>
-                  <span className="inline-flex items-center gap-1 px-2 py-1 bg-green-500 text-white rounded">
+                  <div className="text-sm text-[var(--cinza-600)] mb-1">Recomendacao do Agente</div>
+                  <span className="inline-flex items-center gap-1 px-2 py-1 bg-[var(--verde-500)] text-white rounded">
                     <Check className="w-4 h-4" />
                     {parecerAgente.recomendacao}
                   </span>
                 </div>
 
-                <div className="pt-4 border-t border-gray-200">
-                  <div className="text-sm text-gray-600 mb-2">Observações</div>
-                  <div className="text-sm text-gray-700 p-3 bg-gray-50 rounded-lg">
+                <div className="pt-4 border-t border-[var(--cinza-200)]">
+                  <div className="text-sm text-[var(--cinza-600)] mb-2">Observacoes</div>
+                  <div className="text-sm text-[var(--cinza-700)] p-3 bg-[var(--cinza-50)] rounded-lg">
                     {parecerAgente.observacoes}
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Decisão do Perito */}
+            {/* Decisao do Perito */}
             <div className="bg-white rounded-lg shadow-sm p-6">
               <div className="flex items-center gap-2 mb-4">
-                <div className="w-10 h-10 bg-pink-500/10 rounded-lg flex items-center justify-center">
-                  <FileText className="w-5 h-5 text-pink-500" />
+                <div className="w-10 h-10 bg-[var(--vermelho-50)] rounded-lg flex items-center justify-center">
+                  <FileText className="w-5 h-5 text-[var(--vermelho-400)]" />
                 </div>
                 <div>
-                  <h2 className="text-gray-900">Sua Decisão Técnica</h2>
-                  <div className="text-sm text-gray-600">Avaliação do especialista</div>
+                  <h2 className="text-[var(--cinza-900)]">Sua Decisao Tecnica</h2>
+                  <div className="text-sm text-[var(--cinza-600)]">Avaliacao do especialista</div>
                 </div>
               </div>
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm text-gray-600 mb-3">Decisão</label>
+                  <label className="block text-sm text-[var(--cinza-600)] mb-3">Decisao</label>
                   <div className="space-y-2">
                     <button
                       onClick={() => setDecisao('aprovar')}
                       className={`w-full px-4 py-3 rounded-lg border-2 flex items-center gap-3 transition-colors ${
                         decisao === 'aprovar'
-                          ? 'border-green-500 bg-green-50'
-                          : 'border-gray-200 hover:border-green-300'
+                          ? 'border-[var(--verde-500)] bg-[var(--verde-50)]'
+                          : 'border-[var(--cinza-200)] hover:border-[var(--verde-300)]'
                       }`}
                     >
                       <div
                         className={`w-6 h-6 rounded-full flex items-center justify-center ${
-                          decisao === 'aprovar' ? 'bg-green-500' : 'bg-gray-200'
+                          decisao === 'aprovar' ? 'bg-[var(--verde-500)]' : 'bg-[var(--cinza-200)]'
                         }`}
                       >
                         <Check className="w-4 h-4 text-white" />
                       </div>
                       <div className="text-left">
-                        <div className="text-gray-900">Concorda com o Agente</div>
-                        <div className="text-xs text-gray-600">
-                          Concordo com a análise e recomendação
+                        <div className="text-[var(--cinza-900)]">Concorda com o Agente</div>
+                        <div className="text-xs text-[var(--cinza-600)]">
+                          Concordo com a analise e recomendacao
                         </div>
                       </div>
                     </button>
@@ -318,20 +318,20 @@ export default function AvaliacaoTecnicaPage() {
                       onClick={() => setDecisao('reprovar')}
                       className={`w-full px-4 py-3 rounded-lg border-2 flex items-center gap-3 transition-colors ${
                         decisao === 'reprovar'
-                          ? 'border-red-500 bg-red-50'
-                          : 'border-gray-200 hover:border-red-300'
+                          ? 'border-[var(--vermelho-500)] bg-[var(--vermelho-50)]'
+                          : 'border-[var(--cinza-200)] hover:border-[var(--vermelho-300)]'
                       }`}
                     >
                       <div
                         className={`w-6 h-6 rounded-full flex items-center justify-center ${
-                          decisao === 'reprovar' ? 'bg-red-500' : 'bg-gray-200'
+                          decisao === 'reprovar' ? 'bg-[var(--vermelho-500)]' : 'bg-[var(--cinza-200)]'
                         }`}
                       >
                         <X className="w-4 h-4 text-white" />
                       </div>
                       <div className="text-left">
-                        <div className="text-gray-900">Diverge do Agente</div>
-                        <div className="text-xs text-gray-600">Emitir parecer divergente</div>
+                        <div className="text-[var(--cinza-900)]">Diverge do Agente</div>
+                        <div className="text-xs text-[var(--cinza-600)]">Emitir parecer divergente</div>
                       </div>
                     </button>
 
@@ -339,20 +339,20 @@ export default function AvaliacaoTecnicaPage() {
                       onClick={() => setDecisao('solicitar')}
                       className={`w-full px-4 py-3 rounded-lg border-2 flex items-center gap-3 transition-colors ${
                         decisao === 'solicitar'
-                          ? 'border-yellow-500 bg-yellow-50'
-                          : 'border-gray-200 hover:border-yellow-300'
+                          ? 'border-[var(--amarelo-500)] bg-[var(--amarelo-50)]'
+                          : 'border-[var(--cinza-200)] hover:border-[var(--amarelo-300)]'
                       }`}
                     >
                       <div
                         className={`w-6 h-6 rounded-full flex items-center justify-center ${
-                          decisao === 'solicitar' ? 'bg-yellow-500' : 'bg-gray-200'
+                          decisao === 'solicitar' ? 'bg-[var(--amarelo-500)]' : 'bg-[var(--cinza-200)]'
                         }`}
                       >
                         <AlertCircle className="w-4 h-4 text-white" />
                       </div>
                       <div className="text-left">
-                        <div className="text-gray-900">Solicitar Documentos Adicionais</div>
-                        <div className="text-xs text-gray-600">Mais informações necessárias</div>
+                        <div className="text-[var(--cinza-900)]">Solicitar Documentos Adicionais</div>
+                        <div className="text-xs text-[var(--cinza-600)]">Mais informacoes necessarias</div>
                       </div>
                     </button>
                   </div>
@@ -361,8 +361,8 @@ export default function AvaliacaoTecnicaPage() {
                 {decisao && (
                   <>
                     <div>
-                      <label className="block text-sm text-gray-600 mb-2">
-                        {decisao === 'solicitar' ? 'Documentos Solicitados' : 'Observações do Especialista'}
+                      <label className="block text-sm text-[var(--cinza-600)] mb-2">
+                        {decisao === 'solicitar' ? 'Documentos Solicitados' : 'Observacoes do Especialista'}
                       </label>
                       {decisao === 'solicitar' ? (
                         <div className="space-y-2">
@@ -372,12 +372,12 @@ export default function AvaliacaoTecnicaPage() {
                               value={novoDocumento}
                               onChange={(e) => setNovoDocumento(e.target.value)}
                               placeholder="Digite o documento e clique em adicionar"
-                              className="flex-1 px-4 py-2 border border-gray-300 rounded-lg"
+                              className="flex-1 px-4 py-2 border border-[var(--cinza-300)] rounded-lg"
                               onKeyPress={(e) => e.key === 'Enter' && handleAdicionarDocumento()}
                             />
                             <button
                               onClick={handleAdicionarDocumento}
-                              className="px-4 py-2 bg-[#1CB5C8] text-white rounded-lg hover:bg-[#17a2b3]"
+                              className="sds-btn-primary"
                             >
                               Adicionar
                             </button>
@@ -387,12 +387,12 @@ export default function AvaliacaoTecnicaPage() {
                               {documentosSolicitados.map((doc, index) => (
                                 <div
                                   key={index}
-                                  className="flex items-center justify-between p-2 bg-gray-50 rounded"
+                                  className="flex items-center justify-between p-2 bg-[var(--cinza-50)] rounded"
                                 >
-                                  <span className="text-sm text-gray-700">{doc}</span>
+                                  <span className="text-sm text-[var(--cinza-700)]">{doc}</span>
                                   <button
                                     onClick={() => handleRemoverDocumento(index)}
-                                    className="text-red-500 hover:text-red-700"
+                                    className="text-[var(--vermelho-500)] hover:text-[var(--vermelho-700)]"
                                   >
                                     <X className="w-4 h-4" />
                                   </button>
@@ -405,21 +405,21 @@ export default function AvaliacaoTecnicaPage() {
                         <textarea
                           value={parecer}
                           onChange={(e) => setParecer(e.target.value)}
-                          placeholder="Descreva sua análise técnica e fundamentação..."
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg resize-none"
+                          placeholder="Descreva sua analise tecnica e fundamentacao..."
+                          className="w-full px-4 py-3 border border-[var(--cinza-300)] rounded-lg resize-none"
                           rows={6}
                         />
                       )}
                     </div>
 
-                    <div className="pt-4 border-t border-gray-200">
+                    <div className="pt-4 border-t border-[var(--cinza-200)]">
                       <button
                         className={`w-full px-4 py-3 rounded-lg text-white flex items-center justify-center gap-2 ${
                           decisao === 'aprovar'
-                            ? 'bg-green-500 hover:bg-green-600'
+                            ? 'bg-[var(--verde-500)] hover:bg-[var(--verde-600)]'
                             : decisao === 'reprovar'
-                            ? 'bg-red-500 hover:bg-red-600'
-                            : 'bg-yellow-500 hover:bg-yellow-600'
+                            ? 'bg-[var(--vermelho-500)] hover:bg-[var(--vermelho-600)]'
+                            : 'bg-[var(--amarelo-500)] hover:bg-[var(--amarelo-600)]'
                         }`}
                       >
                         <Send className="w-4 h-4" />
@@ -436,11 +436,11 @@ export default function AvaliacaoTecnicaPage() {
             </div>
           </div>
 
-          {/* Histórico */}
+          {/* Historico */}
           <div className="mt-6 bg-white rounded-lg shadow-sm p-6">
-            <h3 className="text-gray-900 mb-4">Histórico de Avaliações</h3>
-            <div className="text-sm text-gray-500">
-              Nenhuma avaliação técnica anterior para este sinistro.
+            <h3 className="text-[var(--cinza-900)] mb-4">Historico de Avaliacoes</h3>
+            <div className="text-sm text-[var(--cinza-500)]">
+              Nenhuma avaliacao tecnica anterior para este sinistro.
             </div>
           </div>
         </div>

@@ -73,8 +73,8 @@ export default function AcompanhamentoPage() {
 
   if (!sinistroAtual) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-gray-500">Carregando...</div>
+      <div className="min-h-screen bg-[var(--cinza-50)] flex items-center justify-center">
+        <div className="text-[var(--cinza-500)]">Carregando...</div>
       </div>
     )
   }
@@ -92,7 +92,7 @@ export default function AcompanhamentoPage() {
   const eventoAtual = eventos.find((e) => e.id === eventoSelecionado)
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[var(--cinza-50)]">
       <TopBar sinistroNumero={sinistroAtual.id} />
       <HeaderApolice apolice={apolice} sla={sinistroAtual.sla} />
 
@@ -100,7 +100,7 @@ export default function AcompanhamentoPage() {
         <div className="w-full max-w-[1200px] mx-auto">
           <button
             onClick={() => router.push(`/sinistros/${sinistroAtual.id}`)}
-            className="flex items-center gap-2 text-gray-600 hover:text-gray-900 my-4 font-['Poppins']"
+            className="flex items-center gap-2 text-[var(--cinza-600)] hover:text-[var(--cinza-900)] my-4 font-['Poppins']"
           >
             <ChevronLeft className="w-5 h-5" />
             Voltar
@@ -109,19 +109,19 @@ export default function AcompanhamentoPage() {
           <div className="bg-white rounded-lg shadow-sm p-6">
             <div className="flex items-center justify-between mb-6">
               <div>
-                <h2 className="text-gray-900 text-xl mb-1">Acompanhamento do Sinistro</h2>
-                <p className="text-gray-600">Histórico completo das ações e eventos</p>
+                <h2 className="text-[var(--cinza-900)] text-xl mb-1">Acompanhamento do Sinistro</h2>
+                <p className="text-[var(--cinza-600)]">Historico completo das acoes e eventos</p>
               </div>
 
-              {/* Tabs de visualização */}
-              <div className="flex bg-gray-100 rounded-lg p-1">
+              {/* Tabs de visualizacao */}
+              <div className="flex bg-[var(--cinza-100)] rounded-lg p-1">
                 <button
                   onClick={() => setVisualizacao('timeline')}
                   className={cn(
                     'px-4 py-2 rounded-md text-sm font-medium transition-colors',
                     visualizacao === 'timeline'
-                      ? 'bg-white text-gray-900 shadow-sm'
-                      : 'text-gray-600 hover:text-gray-900'
+                      ? 'bg-white text-[var(--cinza-900)] shadow-sm'
+                      : 'text-[var(--cinza-600)] hover:text-[var(--cinza-900)]'
                   )}
                 >
                   <span className="flex items-center gap-2">
@@ -134,8 +134,8 @@ export default function AcompanhamentoPage() {
                   className={cn(
                     'px-4 py-2 rounded-md text-sm font-medium transition-colors',
                     visualizacao === 'log-formal'
-                      ? 'bg-white text-gray-900 shadow-sm'
-                      : 'text-gray-600 hover:text-gray-900'
+                      ? 'bg-white text-[var(--cinza-900)] shadow-sm'
+                      : 'text-[var(--cinza-600)] hover:text-[var(--cinza-900)]'
                   )}
                 >
                   <span className="flex items-center gap-2">
@@ -150,7 +150,7 @@ export default function AcompanhamentoPage() {
             {visualizacao === 'timeline' && (
               <div className="relative">
                 {/* Timeline line */}
-                <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gray-200" />
+                <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-[var(--cinza-200)]" />
 
                 <div className="space-y-6">
                   {eventos.map((evento) => (
@@ -160,10 +160,10 @@ export default function AcompanhamentoPage() {
                         <div
                           className={`w-12 h-12 rounded-full flex items-center justify-center ${
                             evento.tipo === 'agent'
-                              ? 'bg-[#1CB5C8]'
+                              ? 'bg-[var(--azul-principal-500)]'
                               : evento.categoria === 'Pendente'
-                              ? 'bg-gray-300'
-                              : 'bg-pink-500'
+                              ? 'bg-[var(--cinza-300)]'
+                              : 'bg-[var(--vermelho-400)]'
                           }`}
                         >
                           {evento.tipo === 'agent' ? (
@@ -176,20 +176,20 @@ export default function AcompanhamentoPage() {
 
                       {/* Event content */}
                       <div className="flex-1 pb-6">
-                        <div className="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                        <div className="bg-white border border-[var(--cinza-200)] rounded-lg p-4 hover:shadow-md transition-shadow">
                           <div className="flex items-start justify-between mb-2">
                             <div className="flex-1">
                               <div className="flex items-center gap-2 mb-1 flex-wrap">
-                                <span className="text-sm text-gray-500">{evento.data}</span>
-                                <span className="text-sm text-gray-400">•</span>
-                                <span className="text-sm text-gray-700">{evento.categoria}</span>
+                                <span className="text-sm text-[var(--cinza-500)]">{evento.data}</span>
+                                <span className="text-sm text-[var(--cinza-400)]">-</span>
+                                <span className="text-sm text-[var(--cinza-700)]">{evento.categoria}</span>
                                 {evento.tipo === 'agent' && <AgentBadge />}
                               </div>
-                              <div className="text-gray-900">{evento.descricao}</div>
+                              <div className="text-[var(--cinza-900)]">{evento.descricao}</div>
                             </div>
                           </div>
 
-                          <div className="flex items-center gap-2 text-sm text-gray-500">
+                          <div className="flex items-center gap-2 text-sm text-[var(--cinza-500)]">
                             {evento.tipo === 'agent' ? (
                               <span className="flex items-center gap-1">
                                 <Cpu className="w-3 h-3" />
@@ -204,7 +204,7 @@ export default function AcompanhamentoPage() {
                             <div className="mt-3">
                               <button
                                 onClick={() => setEventoSelecionado(evento.id)}
-                                className="flex items-center gap-2 text-[#208fb3] hover:text-[#1a7a9a] text-sm"
+                                className="flex items-center gap-2 text-[var(--azul-principal-600)] hover:text-[var(--azul-principal-700)] text-sm"
                               >
                                 <Cpu className="w-4 h-4" />
                                 Ver cadeia de raciocínio do agente
@@ -225,12 +225,12 @@ export default function AcompanhamentoPage() {
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
-                    <tr className="border-b border-gray-200">
-                      <th className="text-left py-3 px-4 text-sm font-medium text-gray-600">Data/Hora</th>
-                      <th className="text-left py-3 px-4 text-sm font-medium text-gray-600">Ator</th>
-                      <th className="text-left py-3 px-4 text-sm font-medium text-gray-600">Evento</th>
-                      <th className="text-left py-3 px-4 text-sm font-medium text-gray-600">Descrição</th>
-                      <th className="text-left py-3 px-4 text-sm font-medium text-gray-600">Observação</th>
+                    <tr className="border-b border-[var(--cinza-200)]">
+                      <th className="text-left py-3 px-4 text-sm font-medium text-[var(--cinza-600)]">Data/Hora</th>
+                      <th className="text-left py-3 px-4 text-sm font-medium text-[var(--cinza-600)]">Ator</th>
+                      <th className="text-left py-3 px-4 text-sm font-medium text-[var(--cinza-600)]">Evento</th>
+                      <th className="text-left py-3 px-4 text-sm font-medium text-[var(--cinza-600)]">Descricao</th>
+                      <th className="text-left py-3 px-4 text-sm font-medium text-[var(--cinza-600)]">Observacao</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -241,19 +241,19 @@ export default function AcompanhamentoPage() {
                       const isJudicialEvent = log.evento === 'processo-judicial-registrado'
                       
                       return (
-                        <tr 
-                          key={log.id} 
+                        <tr
+                          key={log.id}
                           className={cn(
-                            'border-b border-gray-100 hover:bg-gray-50',
-                            isSLAEvent && 'bg-yellow-50',
-                            isJudicialEvent && 'bg-red-50'
+                            'border-b border-[var(--cinza-100)] hover:bg-[var(--cinza-50)]',
+                            isSLAEvent && 'bg-[var(--amarelo-50)]',
+                            isJudicialEvent && 'bg-[var(--vermelho-50)]'
                           )}
                         >
-                          <td className="py-3 px-4 text-sm text-gray-600">{log.data}</td>
+                          <td className="py-3 px-4 text-sm text-[var(--cinza-600)]">{log.data}</td>
                           <td className="py-3 px-4">
                             <span className={cn(
                               'inline-flex items-center gap-1 px-2 py-1 rounded text-xs',
-                              isSystemEvent ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-700'
+                              isSystemEvent ? 'bg-[var(--azul-principal-100)] text-[var(--azul-principal-700)]' : 'bg-[var(--cinza-100)] text-[var(--cinza-700)]'
                             )}>
                               {isSystemEvent ? <Cpu className="w-3 h-3" /> : <User className="w-3 h-3" />}
                               {log.ator}
@@ -262,17 +262,17 @@ export default function AcompanhamentoPage() {
                           <td className="py-3 px-4">
                             <span className={cn(
                               'inline-flex items-center gap-1 px-2 py-1 rounded text-xs',
-                              isSLAEvent && log.evento === 'sla-suspenso' && 'bg-yellow-200 text-yellow-800',
-                              isSLAEvent && log.evento === 'sla-retomado' && 'bg-green-200 text-green-800',
-                              isJudicialEvent && 'bg-red-200 text-red-800',
-                              !isSLAEvent && !isJudicialEvent && 'bg-gray-200 text-gray-800'
+                              isSLAEvent && log.evento === 'sla-suspenso' && 'bg-[var(--amarelo-200)] text-[var(--amarelo-800)]',
+                              isSLAEvent && log.evento === 'sla-retomado' && 'bg-[var(--verde-200)] text-[var(--verde-800)]',
+                              isJudicialEvent && 'bg-[var(--vermelho-200)] text-[var(--vermelho-800)]',
+                              !isSLAEvent && !isJudicialEvent && 'bg-[var(--cinza-200)] text-[var(--cinza-800)]'
                             )}>
                               <Icone className="w-3 h-3" />
                               {labelEventoFormal[log.evento]}
                             </span>
                           </td>
-                          <td className="py-3 px-4 text-sm text-gray-900">{log.descricao}</td>
-                          <td className="py-3 px-4 text-sm text-gray-500">{log.observacao || '-'}</td>
+                          <td className="py-3 px-4 text-sm text-[var(--cinza-900)]">{log.descricao}</td>
+                          <td className="py-3 px-4 text-sm text-[var(--cinza-500)]">{log.observacao || '-'}</td>
                         </tr>
                       )
                     })}
@@ -284,52 +284,52 @@ export default function AcompanhamentoPage() {
         </div>
       </main>
 
-      {/* Modal - Cadeia de Raciocínio */}
+      {/* Modal - Cadeia de Raciocinio */}
       {eventoSelecionado && eventoAtual?.cadeiaRaciocinio && (
         <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-lg w-full max-w-2xl max-h-[90vh] flex flex-col">
-            <div className="flex items-center justify-between p-6 border-b border-gray-200">
+            <div className="flex items-center justify-between p-6 border-b border-[var(--cinza-200)]">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-[#1CB5C8] rounded-full flex items-center justify-center">
+                <div className="w-10 h-10 bg-[var(--azul-principal-500)] rounded-full flex items-center justify-center">
                   <Cpu className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-[#424242] text-lg">Cadeia de Raciocínio do Agente</h3>
-                  <p className="text-sm text-[#707070]">
+                  <h3 className="text-[var(--cinza-800)] text-lg">Cadeia de Raciocinio do Agente</h3>
+                  <p className="text-sm text-[var(--cinza-500)]">
                     {eventoAtual.descricao} - {eventoAtual.data}
                   </p>
                 </div>
               </div>
               <button
                 onClick={() => setEventoSelecionado(null)}
-                className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                className="p-2 hover:bg-[var(--cinza-100)] rounded-lg transition-colors"
               >
-                <X className="w-5 h-5 text-gray-600" />
+                <X className="w-5 h-5 text-[var(--cinza-600)]" />
               </button>
             </div>
 
             <div className="flex-1 overflow-auto p-6">
-              <div className="bg-[#e9f5f9] border border-[#239dc5] rounded-lg p-4 mb-4">
+              <div className="bg-[var(--azul-principal-50)] border border-[var(--azul-principal-300)] rounded-lg p-4 mb-4">
                 <div className="flex items-start gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-[#208fb3] flex-shrink-0 mt-0.5" />
+                  <CheckCircle2 className="w-5 h-5 text-[var(--azul-principal-600)] flex-shrink-0 mt-0.5" />
                   <div>
-                    <div className="text-[#424242] mb-1">Ação Executada</div>
-                    <div className="text-[#208fb3]">{eventoAtual.descricao}</div>
+                    <div className="text-[var(--cinza-800)] mb-1">Acao Executada</div>
+                    <div className="text-[var(--azul-principal-600)]">{eventoAtual.descricao}</div>
                   </div>
                 </div>
               </div>
 
               <div className="space-y-4">
                 {eventoAtual.cadeiaRaciocinio.map((passo, index) => (
-                  <div key={passo.id} className="border-l-2 border-[#bbe1ed] pl-4">
+                  <div key={passo.id} className="border-l-2 border-[var(--azul-principal-200)] pl-4">
                     <div className="flex items-start gap-2 mb-2">
                       <div
                         className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 ${
                           passo.tipo === 'raciocinio'
-                            ? 'bg-[#b535ff]'
+                            ? 'bg-[var(--cinza-600)]'
                             : passo.tipo === 'ferramenta'
-                            ? 'bg-[#208fb3]'
-                            : 'bg-green-500'
+                            ? 'bg-[var(--azul-principal-500)]'
+                            : 'bg-[var(--verde-500)]'
                         }`}
                       >
                         {passo.tipo === 'raciocinio' ? (
@@ -341,22 +341,22 @@ export default function AcompanhamentoPage() {
                         )}
                       </div>
                       <div>
-                        <div className="text-[#424242] mb-1 capitalize">{passo.tipo}</div>
-                        <div className="text-sm text-[#707070] mb-2">{passo.timestamp}</div>
+                        <div className="text-[var(--cinza-800)] mb-1 capitalize">{passo.tipo}</div>
+                        <div className="text-sm text-[var(--cinza-500)] mb-2">{passo.timestamp}</div>
 
                         {passo.tipo === 'ferramenta' && passo.ferramenta ? (
-                          <div className="bg-gray-50 rounded p-3 font-mono text-xs">
-                            <div className="text-[#208fb3] mb-1">{passo.ferramenta}</div>
-                            <div className="text-gray-600">
+                          <div className="bg-[var(--cinza-50)] rounded p-3 font-mono text-xs">
+                            <div className="text-[var(--azul-principal-600)] mb-1">{passo.ferramenta}</div>
+                            <div className="text-[var(--cinza-600)]">
                               {JSON.stringify(passo.parametros, null, 2)}
                             </div>
                           </div>
                         ) : passo.tipo === 'resultado' ? (
-                          <div className="bg-green-50 border border-green-200 rounded p-3 text-sm">
-                            <div className="text-[#424242]">{passo.conteudo}</div>
+                          <div className="bg-[var(--verde-50)] border border-[var(--verde-200)] rounded p-3 text-sm">
+                            <div className="text-[var(--cinza-800)]">{passo.conteudo}</div>
                           </div>
                         ) : (
-                          <div className="text-sm text-[#575757]">{passo.conteudo}</div>
+                          <div className="text-sm text-[var(--cinza-600)]">{passo.conteudo}</div>
                         )}
                       </div>
                     </div>
