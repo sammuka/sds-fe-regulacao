@@ -69,7 +69,8 @@ export default function AcompanhamentoPage() {
     if (params.id && typeof params.id === 'string') {
       selecionarSinistro(params.id)
     }
-  }, [params.id, selecionarSinistro])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [params.id])
 
   if (!sinistroAtual) {
     return (
