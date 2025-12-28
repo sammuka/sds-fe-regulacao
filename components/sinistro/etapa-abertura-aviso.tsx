@@ -45,55 +45,44 @@ export function EtapaAberturaAviso() {
         </div>
 
         {dadosComunicado && (
-          <div className="grid grid-cols-2 gap-6">
-            {/* Comunicante */}
-            <div className="space-y-4">
-              <h3 className="text-gray-700 font-medium flex items-center gap-2">
-                <User className="w-4 h-4" />
-                Comunicante
-              </h3>
-              <div className="bg-gray-50 rounded-lg p-4 space-y-3">
-                <div>
-                  <div className="text-xs text-gray-500">Nome</div>
-                  <div className="text-gray-900">{dadosComunicado.comunicante.nome}</div>
+          <div className="space-y-4">
+            {/* Comunicante e Data/Hora */}
+            <div className="bg-gray-50 rounded-lg p-4">
+              <div className="flex items-start gap-6 flex-wrap">
+                <div className="flex items-center gap-2 text-sm">
+                  <User className="w-4 h-4 text-gray-500" />
+                  <span className="text-gray-600">Comunicante:</span>
+                  <span className="text-gray-900 font-medium">{dadosComunicado.comunicante.nome}</span>
                 </div>
                 {dadosComunicado.comunicante.email && (
-                  <div className="flex items-center gap-2">
-                    <Mail className="w-4 h-4 text-gray-400" />
-                    <div className="text-gray-700">{dadosComunicado.comunicante.email}</div>
+                  <div className="flex items-center gap-2 text-sm">
+                    <Mail className="w-4 h-4 text-gray-500" />
+                    <span className="text-gray-700">{dadosComunicado.comunicante.email}</span>
                   </div>
                 )}
                 {dadosComunicado.comunicante.telefone && (
-                  <div className="flex items-center gap-2">
-                    <Phone className="w-4 h-4 text-gray-400" />
-                    <div className="text-gray-700">{dadosComunicado.comunicante.telefone}</div>
+                  <div className="flex items-center gap-2 text-sm">
+                    <Phone className="w-4 h-4 text-gray-500" />
+                    <span className="text-gray-700">{dadosComunicado.comunicante.telefone}</span>
                   </div>
                 )}
-              </div>
-            </div>
-
-            {/* Data/Hora e Relato */}
-            <div className="space-y-4">
-              <h3 className="text-gray-700 font-medium flex items-center gap-2">
-                <Calendar className="w-4 h-4" />
-                Data/Hora do Comunicado
-              </h3>
-              <div className="bg-gray-50 rounded-lg p-4">
-                <div className="text-gray-900">{dadosComunicado.dataHoraComunicado}</div>
+                <div className="flex items-center gap-2 text-sm">
+                  <Calendar className="w-4 h-4 text-gray-500" />
+                  <span className="text-gray-600">Comunicado em:</span>
+                  <span className="text-gray-900 font-medium">{dadosComunicado.dataHoraComunicado}</span>
+                </div>
               </div>
             </div>
 
             {/* Relato */}
-            <div className="col-span-2 space-y-4">
-              <h3 className="text-gray-700 font-medium">Relato do Evento</h3>
-              <div className="bg-gray-50 rounded-lg p-4">
-                <p className="text-gray-700">{dadosComunicado.relato}</p>
-              </div>
+            <div className="bg-gray-50 rounded-lg p-4">
+              <div className="text-xs text-gray-600 mb-2">Relato do Evento</div>
+              <p className="text-gray-900 text-sm leading-relaxed">{dadosComunicado.relato}</p>
             </div>
 
             {/* Documentos Enviados */}
-            <div className="col-span-2 space-y-4">
-              <h3 className="text-gray-700 font-medium">Documentos Enviados no Comunicado</h3>
+            <div className="bg-gray-50 rounded-lg p-4">
+              <div className="text-xs text-gray-600 mb-2">Documentos Enviados no Comunicado</div>
               <div className="flex flex-wrap gap-2">
                 {dadosComunicado.documentosEnviados.map((doc, index) => (
                   <span
@@ -125,46 +114,45 @@ export function EtapaAberturaAviso() {
         </div>
 
         {dadosAviso && (
-          <div className="grid grid-cols-3 gap-4 mb-6">
+          <div className="space-y-3 mb-6">
             <div className="bg-gray-50 rounded-lg p-4">
-              <div className="text-xs text-gray-500 mb-1">Número do Aviso</div>
-              <div className="text-gray-900 font-medium">{dadosAviso.numeroAviso}</div>
+              <div className="flex items-center gap-6 flex-wrap text-sm">
+                <div>
+                  <span className="text-gray-600">Aviso:</span> <span className="text-gray-900 font-semibold">{dadosAviso.numeroAviso}</span>
+                </div>
+                <div>
+                  <span className="text-gray-600">Ocorrência:</span> <span className="text-gray-900 font-medium">{dadosAviso.dataOcorrencia}</span>
+                </div>
+                <div>
+                  <span className="text-gray-600">Aviso:</span> <span className="text-gray-900 font-medium">{dadosAviso.dataAviso}</span>
+                </div>
+                <div>
+                  <span className="text-gray-600">Registro:</span> <span className="text-gray-900 font-medium">{dadosAviso.dataRegistro}</span>
+                </div>
+              </div>
             </div>
             <div className="bg-gray-50 rounded-lg p-4">
-              <div className="text-xs text-gray-500 mb-1">Data de Ocorrência</div>
-              <div className="text-gray-900">{dadosAviso.dataOcorrencia}</div>
-            </div>
-            <div className="bg-gray-50 rounded-lg p-4">
-              <div className="text-xs text-gray-500 mb-1">Data do Aviso</div>
-              <div className="text-gray-900">{dadosAviso.dataAviso}</div>
-            </div>
-            <div className="bg-gray-50 rounded-lg p-4">
-              <div className="text-xs text-gray-500 mb-1">Data de Registro</div>
-              <div className="text-gray-900">{dadosAviso.dataRegistro}</div>
-            </div>
-            <div className="bg-gray-50 rounded-lg p-4">
-              <div className="text-xs text-gray-500 mb-1">Natureza do Evento</div>
-              <div className="text-gray-900">{dadosAviso.naturezaEvento}</div>
-            </div>
-            <div className="bg-gray-50 rounded-lg p-4">
-              <div className="text-xs text-gray-500 mb-1">Causa</div>
-              <div className="text-gray-900">{dadosAviso.causa}</div>
-            </div>
-            <div className="bg-gray-50 rounded-lg p-4">
-              <div className="text-xs text-gray-500 mb-1">Tipo de Evento</div>
-              <div className="text-gray-900">{dadosAviso.tipoEvento}</div>
-            </div>
-            <div className="bg-gray-50 rounded-lg p-4 col-span-2">
-              <div className="text-xs text-gray-500 mb-1">Abertura Automática via Comunicado</div>
-              <div className="flex items-center gap-2">
-                {dadosAviso.aberturaAutomatica ? (
-                  <>
-                    <Check className="w-4 h-4 text-green-500" />
-                    <span className="text-green-700">Sim</span>
-                  </>
-                ) : (
-                  <span className="text-gray-700">Não</span>
-                )}
+              <div className="flex items-center gap-6 flex-wrap text-sm">
+                <div>
+                  <span className="text-gray-600">Natureza:</span> <span className="text-gray-900 font-medium">{dadosAviso.naturezaEvento}</span>
+                </div>
+                <div>
+                  <span className="text-gray-600">Causa:</span> <span className="text-gray-900 font-medium">{dadosAviso.causa}</span>
+                </div>
+                <div>
+                  <span className="text-gray-600">Tipo:</span> <span className="text-gray-900 font-medium">{dadosAviso.tipoEvento}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-gray-600">Abertura Automática:</span>
+                  {dadosAviso.aberturaAutomatica ? (
+                    <>
+                      <Check className="w-4 h-4 text-green-500" />
+                      <span className="text-green-700 font-medium">Sim</span>
+                    </>
+                  ) : (
+                    <span className="text-gray-700 font-medium">Não</span>
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -186,36 +174,29 @@ export function EtapaAberturaAviso() {
               )}
             </div>
 
-            <div className="grid grid-cols-4 gap-4">
+            <div className="flex items-center gap-6 flex-wrap text-sm">
               <div>
-                <div className="text-xs text-gray-500 mb-1">SLA Total</div>
-                <div className="text-gray-900 font-medium">{sla.slaTotal} dias</div>
+                <span className="text-gray-600">SLA Total:</span> <span className="text-gray-900 font-semibold">{sla.slaTotal} dias</span>
               </div>
               <div>
-                <div className="text-xs text-gray-500 mb-1">SLA Consumido</div>
-                <div className="text-gray-900 font-medium">{sla.slaConsumido} dias</div>
+                <span className="text-gray-600">Consumido:</span> <span className="text-gray-900 font-medium">{sla.slaConsumido} dias</span>
               </div>
               <div>
-                <div className="text-xs text-gray-500 mb-1">Dias Restantes</div>
-                <div className={`font-medium ${sla.diasRestantes <= 5 ? 'text-red-600' : 'text-green-600'}`}>
-                  {sla.diasRestantes} dias
-                </div>
+                <span className="text-gray-600">Restante:</span> <span className={`font-semibold ${sla.diasRestantes <= 5 ? 'text-red-600' : 'text-green-600'}`}>{sla.diasRestantes} dias</span>
               </div>
-              <div>
-                <div className="text-xs text-gray-500 mb-1">Status</div>
-                <div className="flex items-center gap-1">
-                  {sla.slaSuspenso ? (
-                    <>
-                      <Pause className="w-4 h-4 text-yellow-600" />
-                      <span className="text-yellow-700">Suspenso</span>
-                    </>
-                  ) : (
-                    <>
-                      <Play className="w-4 h-4 text-green-600" />
-                      <span className="text-green-700">Em andamento</span>
-                    </>
-                  )}
-                </div>
+              <div className="flex items-center gap-1">
+                <span className="text-gray-600">Status:</span>
+                {sla.slaSuspenso ? (
+                  <>
+                    <Pause className="w-4 h-4 text-yellow-600" />
+                    <span className="text-yellow-700 font-medium">Suspenso</span>
+                  </>
+                ) : (
+                  <>
+                    <Play className="w-4 h-4 text-green-600" />
+                    <span className="text-green-700 font-medium">Em andamento</span>
+                  </>
+                )}
               </div>
             </div>
 

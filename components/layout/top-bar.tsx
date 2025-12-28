@@ -98,7 +98,7 @@ export function TopBar({ sinistroNumero }: TopBarProps) {
   const { usuario } = useUsuario()
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 px-4 pt-3">
+    <header className="fixed top-0 left-0 right-0 z-50 px-4 pt-3 bg-gradient-to-b from-[var(--cinza-100)] via-[var(--cinza-100)] to-transparent pb-3">
       <div className="bg-[#239dc5] flex items-center gap-4 px-4 py-2.5 max-w-[1200px] mx-auto rounded-xl shadow-lg">
         <Link href="/sinistros" className="shrink-0">
           <LogoSds />
@@ -116,10 +116,9 @@ export function TopBar({ sinistroNumero }: TopBarProps) {
           {sinistroNumero && (
             <div className="flex items-center gap-1.5 bg-white/20 px-3 py-1.5 rounded-full shrink-0">
               <FileText className="w-3.5 h-3.5 text-white" />
-              <div className="flex flex-col leading-tight">
-                <span className="font-['Poppins'] text-[10px] text-white/80">Sinistro:</span>
-                <span className="font-['Poppins'] font-semibold text-xs text-white">{sinistroNumero}</span>
-              </div>
+              <span className="font-['Poppins'] text-xs text-white">
+                Sinistro: <span className="font-semibold">{sinistroNumero}</span>
+              </span>
             </div>
           )}
         </div>

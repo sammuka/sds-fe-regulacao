@@ -30,40 +30,34 @@ export function HeaderApolice({ apolice, sla }: HeaderApoliceProps) {
   }
 
   return (
-    <div className="fixed top-[72px] left-0 right-0 z-40 px-4 pt-3">
-      <div className="bg-gradient-to-r from-[#6ec8e5] to-[#1c7b99] flex items-center justify-between px-4 py-3 max-w-[1200px] mx-auto rounded-xl shadow-md overflow-hidden">
+    <div className="fixed top-[72px] left-0 right-0 z-40 px-4 pt-3 bg-gradient-to-b from-[var(--cinza-100)] via-[var(--cinza-100)] to-transparent pb-3">
+      <div className="bg-gradient-to-r from-[#6ec8e5] to-[#1c7b99] flex items-center justify-between px-4 py-2.5 max-w-[1200px] mx-auto rounded-xl shadow-md overflow-hidden">
         {/* Informações da Apólice */}
-        <div className="flex items-center gap-4 min-w-0 flex-1">
-          {/* Número da Apólice e Produto */}
-          <div className="flex items-center gap-2 shrink-0">
-            <span className="font-['Poppins'] font-semibold text-sm text-white whitespace-nowrap">
-              Apólice {apolice.numero}
+        <div className="flex flex-col gap-1 min-w-0 flex-1">
+          {/* Linha 1: Apólice e Segurado */}
+          <div className="flex items-center gap-4 text-white text-xs font-['Poppins']">
+            <span className="shrink-0">
+              Apólice: <span className="font-semibold">{apolice.numero}</span>
             </span>
-            <span className="bg-white/20 px-2 py-0.5 rounded-full text-xs text-white font-['Poppins'] whitespace-nowrap">
-              {apolice.produto}
+            <span className="shrink-0">
+              Segurado: <span className="font-semibold truncate max-w-[200px] inline-block align-bottom">{apolice.segurado}</span>
+            </span>
+            <span className="shrink-0 hidden md:inline">
+              Vigência: <span className="font-medium">{apolice.inicioVigencia} a {apolice.terminoVigencia}</span>
             </span>
           </div>
 
-          {/* Dados do Segurado */}
-          <div className="flex items-center gap-4 text-white/90 min-w-0">
-            <div className="shrink-0">
-              <p className="text-[10px] font-['Poppins'] opacity-80">Segurado</p>
-              <p className="font-['Poppins'] font-medium text-xs truncate max-w-[120px]">{apolice.segurado}</p>
-            </div>
-            <div className="shrink-0">
-              <p className="text-[10px] font-['Poppins'] opacity-80">Ramo</p>
-              <p className="font-['Poppins'] font-medium text-xs">{apolice.ramo}</p>
-            </div>
-            <div className="shrink-0 hidden md:block">
-              <p className="text-[10px] font-['Poppins'] opacity-80">Vigência</p>
-              <p className="font-['Poppins'] font-medium text-xs whitespace-nowrap">
-                {apolice.inicioVigencia} a {apolice.terminoVigencia}
-              </p>
-            </div>
-            <div className="shrink-0 hidden lg:block">
-              <p className="text-[10px] font-['Poppins'] opacity-80">Data Emissão</p>
-              <p className="font-['Poppins'] font-medium text-xs">{apolice.dataEmissao}</p>
-            </div>
+          {/* Linha 2: Ramo e Produto */}
+          <div className="flex items-center gap-4 text-white text-xs font-['Poppins']">
+            <span className="shrink-0">
+              Ramo: <span className="font-semibold">{apolice.ramo}</span>
+            </span>
+            <span className="shrink-0">
+              Produto: <span className="font-semibold">{apolice.produto}</span>
+            </span>
+            <span className="shrink-0 hidden lg:inline">
+              Emissão: <span className="font-medium">{apolice.dataEmissao}</span>
+            </span>
           </div>
         </div>
 
