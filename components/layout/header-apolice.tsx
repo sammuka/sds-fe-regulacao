@@ -31,33 +31,33 @@ export function HeaderApolice({ apolice, sla }: HeaderApoliceProps) {
 
   return (
     <div className="fixed top-[72px] left-0 right-0 z-40 px-4 pt-3 pb-3 bg-[#e1e1e1]">
-      <div className="bg-gradient-to-r from-[#6ec8e5] to-[#1c7b99] flex items-center justify-between px-4 py-3 max-w-[1200px] mx-auto rounded-xl shadow-md overflow-hidden">
+      <div className="bg-gradient-to-r from-[#6ec8e5] to-[#1c7b99] flex items-center justify-between px-4 py-3 max-w-[1200px] mx-auto rounded-xl shadow-md">
         {/* Informações da Apólice */}
-        <div className="flex-1 min-w-0">
-          <div className="grid grid-cols-6 gap-4 text-white font-['Poppins']">
-            <div>
-              <div className="text-[10px] text-white/80 mb-0.5">Apólice</div>
-              <div className="text-sm font-semibold">{apolice.numero}</div>
+        <div className="flex-1 min-w-0 mr-4">
+          <div className="grid grid-cols-3 lg:grid-cols-6 gap-3 lg:gap-4 text-white font-['Poppins']">
+            <div className="min-w-0">
+              <div className="text-[10px] text-white/80 mb-0.5 whitespace-nowrap">Apólice</div>
+              <div className="text-sm font-semibold whitespace-nowrap">{apolice.numero}</div>
             </div>
-            <div>
-              <div className="text-[10px] text-white/80 mb-0.5">Segurado</div>
+            <div className="min-w-0">
+              <div className="text-[10px] text-white/80 mb-0.5 whitespace-nowrap">Segurado</div>
               <div className="text-sm font-semibold truncate">{apolice.segurado}</div>
             </div>
-            <div>
-              <div className="text-[10px] text-white/80 mb-0.5">Vigência</div>
-              <div className="text-sm font-medium">{apolice.inicioVigencia} a {apolice.terminoVigencia}</div>
+            <div className="min-w-0">
+              <div className="text-[10px] text-white/80 mb-0.5 whitespace-nowrap">Vigência</div>
+              <div className="text-sm font-medium whitespace-nowrap">{apolice.inicioVigencia} a {apolice.terminoVigencia}</div>
             </div>
-            <div>
-              <div className="text-[10px] text-white/80 mb-0.5">Ramo</div>
-              <div className="text-sm font-semibold">{apolice.ramo}</div>
+            <div className="min-w-0">
+              <div className="text-[10px] text-white/80 mb-0.5 whitespace-nowrap">Ramo</div>
+              <div className="text-sm font-semibold whitespace-nowrap">{apolice.ramo}</div>
             </div>
-            <div>
-              <div className="text-[10px] text-white/80 mb-0.5">Produto</div>
-              <div className="text-sm font-semibold">{apolice.produto}</div>
+            <div className="min-w-0">
+              <div className="text-[10px] text-white/80 mb-0.5 whitespace-nowrap">Produto</div>
+              <div className="text-sm font-semibold truncate">{apolice.produto}</div>
             </div>
-            <div>
-              <div className="text-[10px] text-white/80 mb-0.5">Emissão</div>
-              <div className="text-sm font-medium">{apolice.dataEmissao}</div>
+            <div className="min-w-0">
+              <div className="text-[10px] text-white/80 mb-0.5 whitespace-nowrap">Emissão</div>
+              <div className="text-sm font-medium whitespace-nowrap">{apolice.dataEmissao}</div>
             </div>
           </div>
         </div>
