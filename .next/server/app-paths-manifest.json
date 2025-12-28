@@ -1,0 +1,7 @@
+{
+  "/sinistros/[id]/page": "app/sinistros/[id]/page.js",
+  "/sinistros/[id]/fluxo/page": "app/sinistros/[id]/fluxo/page.js",
+  "/sinistros/[id]/pericia/page": "app/sinistros/[id]/pericia/page.js",
+  "/sinistros/[id]/documentos/page": "app/sinistros/[id]/documentos/page.js",
+  "/sinistros/page": "app/sinistros/page.js"
+}
