@@ -69,7 +69,7 @@ export function StepperAnalista({ className }: StepperAnalistaProps) {
                       !isCurrent && !isBlocked && 'text-[var(--cinza-600)]'
                     )}
                   >
-                    Etapa {etapa.numero}
+                    Etapa {etapa.numero + 1}
                   </div>
                   <div
                     className={cn(
@@ -104,7 +104,7 @@ export function StepperProgress({ etapaAtual, etapasCompletas }: StepperProgress
     <div className="mb-6">
       <div className="flex items-center justify-between mb-2">
         <span className="text-sm text-[var(--cinza-600)]">
-          Etapa {etapaAtual} de {totalEtapas - 1}
+          Etapa {etapaAtual + 1} de {totalEtapas}
         </span>
         <span className="text-sm text-[var(--cinza-600)]">
           {Math.round(progresso)}% concluído
