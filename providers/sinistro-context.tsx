@@ -110,12 +110,13 @@ export function SinistroProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const setEtapaStepper = useCallback((etapa: EtapaStepper) => {
-    // Verifica se a etapa está bloqueada
-    if (estadoStepper.etapasBloqueadas.includes(etapa)) {
-      return
-    }
-    setEstadoStepper(prev => ({ ...prev, etapaAtual: etapa }))
-  }, [estadoStepper.etapasBloqueadas])
+    setEstadoStepper(prev => {
+      if (prev.etapasBloqueadas.includes(etapa)) {
+        return prev
+      }
+      return { ...prev, etapaAtual: etapa }
+    })
+  }, [])
 
   const completarEtapa = useCallback((etapa: EtapaStepper) => {
     setEstadoStepper(prev => {
@@ -139,7 +140,7 @@ export function SinistroProvider({ children }: { children: ReactNode }) {
   const podeAvancar = useCallback((etapa: EtapaStepper): boolean => {
     const prerequisitos = REGRAS_GATING[etapa]
     return prerequisitos.every(p => estadoStepper.etapasCompletas.includes(p))
-  }, [estadoStepper.etapasCompletas])
+  }, [estadoStepper])
 
   const value = useMemo<SinistroContextType>(() => ({
     sinistros,
