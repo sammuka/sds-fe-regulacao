@@ -31,33 +31,34 @@ export function HeaderApolice({ apolice, sla }: HeaderApoliceProps) {
 
   return (
     <div className="fixed top-[72px] left-0 right-0 z-40 px-4 pt-3 pb-3 bg-[#e1e1e1]">
-      <div className="bg-gradient-to-r from-[#6ec8e5] to-[#1c7b99] flex items-center justify-between px-4 py-2.5 max-w-[1200px] mx-auto rounded-xl shadow-md overflow-hidden">
+      <div className="bg-gradient-to-r from-[#6ec8e5] to-[#1c7b99] flex items-center justify-between px-4 py-3 max-w-[1200px] mx-auto rounded-xl shadow-md overflow-hidden">
         {/* Informações da Apólice */}
-        <div className="flex flex-col gap-1 min-w-0 flex-1">
-          {/* Linha 1: Apólice e Segurado */}
-          <div className="flex items-center gap-4 text-white text-xs font-['Poppins']">
-            <span className="shrink-0">
-              Apólice: <span className="font-semibold">{apolice.numero}</span>
-            </span>
-            <span className="shrink-0">
-              Segurado: <span className="font-semibold truncate max-w-[200px] inline-block align-bottom">{apolice.segurado}</span>
-            </span>
-            <span className="shrink-0 hidden md:inline">
-              Vigência: <span className="font-medium">{apolice.inicioVigencia} a {apolice.terminoVigencia}</span>
-            </span>
-          </div>
-
-          {/* Linha 2: Ramo e Produto */}
-          <div className="flex items-center gap-4 text-white text-xs font-['Poppins']">
-            <span className="shrink-0">
-              Ramo: <span className="font-semibold">{apolice.ramo}</span>
-            </span>
-            <span className="shrink-0">
-              Produto: <span className="font-semibold">{apolice.produto}</span>
-            </span>
-            <span className="shrink-0 hidden lg:inline">
-              Emissão: <span className="font-medium">{apolice.dataEmissao}</span>
-            </span>
+        <div className="flex-1 min-w-0">
+          <div className="grid grid-cols-6 gap-4 text-white font-['Poppins']">
+            <div>
+              <div className="text-[10px] text-white/80 mb-0.5">Apólice</div>
+              <div className="text-sm font-semibold">{apolice.numero}</div>
+            </div>
+            <div>
+              <div className="text-[10px] text-white/80 mb-0.5">Segurado</div>
+              <div className="text-sm font-semibold truncate">{apolice.segurado}</div>
+            </div>
+            <div>
+              <div className="text-[10px] text-white/80 mb-0.5">Vigência</div>
+              <div className="text-sm font-medium">{apolice.inicioVigencia} a {apolice.terminoVigencia}</div>
+            </div>
+            <div>
+              <div className="text-[10px] text-white/80 mb-0.5">Ramo</div>
+              <div className="text-sm font-semibold">{apolice.ramo}</div>
+            </div>
+            <div>
+              <div className="text-[10px] text-white/80 mb-0.5">Produto</div>
+              <div className="text-sm font-semibold">{apolice.produto}</div>
+            </div>
+            <div>
+              <div className="text-[10px] text-white/80 mb-0.5">Emissão</div>
+              <div className="text-sm font-medium">{apolice.dataEmissao}</div>
+            </div>
           </div>
         </div>
 
