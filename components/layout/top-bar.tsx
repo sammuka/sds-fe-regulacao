@@ -98,7 +98,7 @@ export function TopBar({ sinistroNumero }: TopBarProps) {
   const { usuario } = useUsuario()
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 px-4 pt-3 bg-gradient-to-b from-[var(--cinza-100)] via-[var(--cinza-100)] to-transparent pb-3">
+    <header className="fixed top-0 left-0 right-0 z-50 px-4 pt-3 pb-3 bg-[#e1e1e1]">
       <div className="bg-[#239dc5] flex items-center gap-4 px-4 py-2.5 max-w-[1200px] mx-auto rounded-xl shadow-lg">
         <Link href="/sinistros" className="shrink-0">
           <LogoSds />
