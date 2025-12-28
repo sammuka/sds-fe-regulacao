@@ -30,7 +30,7 @@ export function HeaderApolice({ apolice, sla }: HeaderApoliceProps) {
   }
 
   return (
-    <div className="fixed top-[72px] left-0 right-0 z-40 px-4 pt-3 bg-gradient-to-b from-[var(--cinza-100)] via-[var(--cinza-100)] to-transparent pb-3">
+    <div className="fixed top-[72px] left-0 right-0 z-40 px-4 pt-3 pb-3 bg-[#e1e1e1]">
       <div className="bg-gradient-to-r from-[#6ec8e5] to-[#1c7b99] flex items-center justify-between px-4 py-2.5 max-w-[1200px] mx-auto rounded-xl shadow-md overflow-hidden">
         {/* Informações da Apólice */}
         <div className="flex flex-col gap-1 min-w-0 flex-1">
