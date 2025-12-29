@@ -32,17 +32,34 @@ export function HeaderApolice({ apolice, sla }: HeaderApoliceProps) {
   return (
     <div className="fixed top-[72px] left-0 right-0 z-40 px-4 pt-3 pb-3 bg-[#e1e1e1]">
       <div className="bg-gradient-to-r from-[#6ec8e5] to-[#1c7b99] px-4 py-2.5 max-w-[1200px] mx-auto rounded-xl shadow-md flex items-center justify-between gap-4">
-        {/* Informações da Apólice - Grid 2 linhas */}
         <div className="text-white font-['Poppins'] text-[11px] leading-relaxed flex-1">
           <div className="flex items-center gap-4">
-            <span><span className="text-white/60">Apólice:</span> <span className="font-semibold">{apolice.numero}</span></span>
-            <span><span className="text-white/60">Segurado:</span> <span className="font-semibold">{apolice.segurado}</span></span>
-            <span><span className="text-white/60">Vigência:</span> <span className="font-medium">{apolice.inicioVigencia} a {apolice.terminoVigencia}</span></span>
+            <div>
+              <span className="text-white/60">Apólice: </span>
+              <span className="font-semibold">{apolice.numero}</span>
+            </div>
+            <div>
+              <span className="text-white/60">Segurado: </span>
+              <span className="font-semibold">{apolice.segurado}</span>
+            </div>
+            <div>
+              <span className="text-white/60">Vigência: </span>
+              <span className="font-medium">{apolice.inicioVigencia} a {apolice.terminoVigencia}</span>
+            </div>
           </div>
           <div className="flex items-center gap-4 mt-1">
-            <span><span className="text-white/60">Ramo:</span> <span className="font-semibold">{apolice.ramo}</span></span>
-            <span><span className="text-white/60">Produto:</span> <span className="font-semibold">{apolice.produto}</span></span>
-            <span><span className="text-white/60">Emissão:</span> <span className="font-medium">{apolice.dataEmissao}</span></span>
+            <div>
+              <span className="text-white/60">Ramo: </span>
+              <span className="font-semibold">{apolice.ramo}</span>
+            </div>
+            <div>
+              <span className="text-white/60">Produto: </span>
+              <span className="font-semibold">{apolice.produto}</span>
+            </div>
+            <div>
+              <span className="text-white/60">Emissão: </span>
+              <span className="font-medium">{apolice.dataEmissao}</span>
+            </div>
           </div>
         </div>
 
