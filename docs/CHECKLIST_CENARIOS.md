@@ -12,7 +12,9 @@ Este documento descreve os passos para validar os dois cenários implementados n
    npm run dev
    ```
 
-2. Acessar: `http://localhost:3000`
+2. Acessar: `http://localhost:3005`
+
+> **Nota:** A porta padrão é 3005. Se estiver ocupada, o Next.js pode usar outra porta.
 
 ---
 
@@ -24,7 +26,7 @@ Este documento descreve os passos para validar os dois cenários implementados n
 ### Passos de Validação
 
 #### 1. Fila de Sinistros
-- [ ] Abrir `http://localhost:3000/sinistros`
+- [ ] Abrir `http://localhost:3005/sinistros`
 - [ ] Verificar que o sinistro `SIN-2024-001001` aparece com tag **"Cenário A"** (verde)
 - [ ] Verificar que **NÃO** possui badges "Judicial" ou "Em Perícia"
 - [ ] Verificar status do SLA: **Não suspenso**
@@ -105,7 +107,7 @@ Este documento descreve os passos para validar os dois cenários implementados n
 ### Passos de Validação
 
 #### 1. Fila de Sinistros
-- [ ] Abrir `http://localhost:3000/sinistros`
+- [ ] Abrir `http://localhost:3005/sinistros`
 - [ ] Verificar que o sinistro `SIN-2024-001002` aparece com tag **"Cenário B"** (roxo)
 - [ ] Verificar badges:
   - **"SLA Suspenso"** (amarelo)

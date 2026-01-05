@@ -15,12 +15,15 @@ import {
   Send, 
   Clock, 
   User,
-  Calendar,
   Scale,
   Cpu,
-  Percent
+  Percent,
+  Stethoscope
 } from 'lucide-react'
 import { formatCurrency, cn } from '@/lib/utils'
+import { Button } from '@/components/ui/button'
+import { ConfirmDialog } from '@/components/ui/confirm-dialog'
+import { feedback } from '@/lib/feedback'
 
 export default function AvaliacaoTecnicaPage() {
   const params = useParams()
@@ -30,6 +33,8 @@ export default function AvaliacaoTecnicaPage() {
   const [parecer, setParecer] = useState('')
   const [documentosSolicitados, setDocumentosSolicitados] = useState<string[]>([])
   const [novoDocumento, setNovoDocumento] = useState('')
+  const [dialogOpen, setDialogOpen] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     if (params.id && typeof params.id === 'string') {
@@ -79,6 +84,30 @@ export default function AvaliacaoTecnicaPage() {
     setDocumentosSolicitados(documentosSolicitados.filter((_, i) => i !== index))
   }
 
+  const handleConfirmarDecisao = async () => {
+    setLoading(true)
+    try {
+      await new Promise(resolve => setTimeout(resolve, 500))
+      
+      if (decisao === 'aprovar') {
+        feedback.success('Parecer registrado', 'Você concordou com a análise do agente')
+      } else if (decisao === 'reprovar') {
+        feedback.warning('Parecer divergente', 'Seu parecer foi registrado para análise')
+      } else {
+        feedback.info('Documentos solicitados', 'O SLA foi suspenso aguardando entrega')
+      }
+      
+      setDialogOpen(false)
+      setDecisao(null)
+      setParecer('')
+      setDocumentosSolicitados([])
+    } catch {
+      feedback.error('Erro ao registrar', 'Tente novamente')
+    } finally {
+      setLoading(false)
+    }
+  }
+
   const statusPericiaConfig = {
     'nao-iniciada': { label: 'Nao Iniciada', color: 'bg-[var(--cinza-100)] text-[var(--cinza-700)]' },
     'enviada': { label: 'Enviada', color: 'bg-[var(--azul-principal-100)] text-[var(--azul-principal-700)]' },
@@ -91,7 +120,7 @@ export default function AvaliacaoTecnicaPage() {
       <TopBar sinistroNumero={sinistroAtual.id} />
       <HeaderApolice apolice={apolice} sla={sinistroAtual.sla} />
 
-      <main className="pt-[168px] px-4 pb-8">
+      <main className="pt-[176px] px-4 pb-8">
         <div className="w-full max-w-[1200px] mx-auto">
           <button
             onClick={() => router.push(`/sinistros/${sinistroAtual.id}`)}
@@ -222,9 +251,9 @@ export default function AvaliacaoTecnicaPage() {
             </div>
           )}
 
-          <div className="grid grid-cols-2 gap-6">
-            {/* Parecer do Agente */}
-            <div className="bg-white rounded-lg shadow-sm p-6">
+          <div className="grid grid-cols-5 gap-6">
+            {/* Parecer do Agente - 60% */}
+            <div className="col-span-3 bg-white rounded-lg shadow-sm p-6">
               <div className="flex items-center gap-2 mb-4">
                 <div className="w-10 h-10 bg-[var(--azul-principal-50)] rounded-lg flex items-center justify-center">
                   <FileText className="w-5 h-5 text-[var(--azul-principal-500)]" />
@@ -276,8 +305,8 @@ export default function AvaliacaoTecnicaPage() {
               </div>
             </div>
 
-            {/* Decisao do Perito */}
-            <div className="bg-white rounded-lg shadow-sm p-6">
+            {/* Decisao do Perito - 40% */}
+            <div className="col-span-2 bg-white rounded-lg shadow-sm p-6">
               <div className="flex items-center gap-2 mb-4">
                 <div className="w-10 h-10 bg-[var(--vermelho-50)] rounded-lg flex items-center justify-center">
                   <FileText className="w-5 h-5 text-[var(--vermelho-400)]" />
@@ -414,14 +443,16 @@ export default function AvaliacaoTecnicaPage() {
                     </div>
 
                     <div className="pt-4 border-t border-[var(--cinza-200)]">
-                      <button
-                        className={`w-full px-4 py-3 rounded-lg text-white flex items-center justify-center gap-2 ${
+                      <Button
+                        onClick={() => setDialogOpen(true)}
+                        className={`w-full flex items-center justify-center gap-2 ${
                           decisao === 'aprovar'
-                            ? 'bg-[var(--verde-500)] hover:bg-[var(--verde-600)]'
+                            ? 'bg-green-500 hover:bg-green-600'
                             : decisao === 'reprovar'
-                            ? 'bg-[var(--vermelho-500)] hover:bg-[var(--vermelho-600)]'
-                            : 'bg-[var(--amarelo-500)] hover:bg-[var(--amarelo-600)]'
+                            ? 'bg-red-500 hover:bg-red-600'
+                            : 'bg-yellow-500 hover:bg-yellow-600'
                         }`}
+                        disabled={decisao === 'solicitar' && documentosSolicitados.length === 0}
                       >
                         <Send className="w-4 h-4" />
                         {decisao === 'aprovar'
@@ -429,7 +460,7 @@ export default function AvaliacaoTecnicaPage() {
                           : decisao === 'reprovar'
                           ? 'Enviar Parecer Divergente'
                           : 'Solicitar Documentos'}
-                      </button>
+                      </Button>
                     </div>
                   </>
                 )}
@@ -446,6 +477,36 @@ export default function AvaliacaoTecnicaPage() {
           </div>
         </div>
       </main>
+
+      {/* Dialog de confirmação */}
+      <ConfirmDialog
+        open={dialogOpen}
+        onOpenChange={setDialogOpen}
+        title={
+          decisao === 'aprovar'
+            ? 'Confirmar Concordância'
+            : decisao === 'reprovar'
+            ? 'Confirmar Parecer Divergente'
+            : 'Confirmar Solicitação de Documentos'
+        }
+        description={
+          decisao === 'aprovar'
+            ? 'Você confirma que concorda com a análise e recomendação do agente?'
+            : decisao === 'reprovar'
+            ? 'Você está registrando um parecer divergente. Esta ação será auditada.'
+            : `Você está solicitando ${documentosSolicitados.length} documento(s). O SLA será suspenso até a entrega.`
+        }
+        confirmText={
+          decisao === 'aprovar'
+            ? 'Concordar'
+            : decisao === 'reprovar'
+            ? 'Registrar Divergência'
+            : 'Solicitar'
+        }
+        variant={decisao === 'reprovar' ? 'destructive' : decisao === 'solicitar' ? 'warning' : 'default'}
+        onConfirm={handleConfirmarDecisao}
+        loading={loading}
+      />
     </div>
   )
 }

@@ -71,7 +71,7 @@ export default function FluxoJornadaPage() {
       <TopBar sinistroNumero={sinistroAtual.id} />
       <HeaderApolice apolice={apolice} sla={sinistroAtual.sla} />
 
-      <main className="pt-[168px] px-4 pb-8">
+      <main className="pt-[176px] px-4 pb-8">
         <div className="w-full max-w-[1200px] mx-auto">
           <button
             onClick={() => router.push(`/sinistros/${sinistroAtual.id}`)}

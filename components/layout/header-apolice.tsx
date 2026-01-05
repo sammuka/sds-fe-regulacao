@@ -30,35 +30,35 @@ export function HeaderApolice({ apolice, sla }: HeaderApoliceProps) {
   }
 
   return (
-    <div className="fixed top-[72px] left-0 right-0 z-40 px-4 pt-3 pb-3 bg-[#e1e1e1]">
+    <div className="fixed top-[67px] left-0 right-0 z-40 px-4 py-1.5 bg-[var(--cinza-100)]">
       <div className="bg-gradient-to-r from-[#6ec8e5] to-[#1c7b99] px-4 py-2.5 max-w-[1200px] mx-auto rounded-xl shadow-md flex items-center justify-between gap-4">
         <div className="text-white font-['Poppins'] text-[11px] leading-relaxed flex-1">
-          <div className="flex items-center gap-4">
-            <div>
-              <span className="text-white/60">Apólice: </span>
-              <span className="font-semibold">{apolice.numero}</span>
+          <div className="grid grid-cols-3 gap-x-8 gap-y-2">
+            {/* Linha 1 */}
+            <div className="flex flex-col">
+              <span className="text-white/60 text-[10px] whitespace-nowrap">Apólice</span>
+              <span className="font-semibold whitespace-nowrap">{apolice.numero}</span>
             </div>
-            <div>
-              <span className="text-white/60">Segurado: </span>
-              <span className="font-semibold">{apolice.segurado}</span>
+            <div className="flex flex-col">
+              <span className="text-white/60 text-[10px] whitespace-nowrap">Segurado</span>
+              <span className="font-semibold whitespace-nowrap truncate">{apolice.segurado}</span>
             </div>
-            <div>
-              <span className="text-white/60">Vigência: </span>
-              <span className="font-medium">{apolice.inicioVigencia} a {apolice.terminoVigencia}</span>
+            <div className="flex flex-col">
+              <span className="text-white/60 text-[10px] whitespace-nowrap">Vigência</span>
+              <span className="font-medium whitespace-nowrap">{apolice.inicioVigencia} a {apolice.terminoVigencia}</span>
             </div>
-          </div>
-          <div className="flex items-center gap-4 mt-1">
-            <div>
-              <span className="text-white/60">Ramo: </span>
-              <span className="font-semibold">{apolice.ramo}</span>
+            {/* Linha 2 */}
+            <div className="flex flex-col">
+              <span className="text-white/60 text-[10px] whitespace-nowrap">Ramo</span>
+              <span className="font-semibold whitespace-nowrap">{apolice.ramo}</span>
             </div>
-            <div>
-              <span className="text-white/60">Produto: </span>
-              <span className="font-semibold">{apolice.produto}</span>
+            <div className="flex flex-col">
+              <span className="text-white/60 text-[10px] whitespace-nowrap">Produto</span>
+              <span className="font-semibold whitespace-nowrap truncate">{apolice.produto}</span>
             </div>
-            <div>
-              <span className="text-white/60">Emissão: </span>
-              <span className="font-medium">{apolice.dataEmissao}</span>
+            <div className="flex flex-col">
+              <span className="text-white/60 text-[10px] whitespace-nowrap">Emissão</span>
+              <span className="font-medium whitespace-nowrap">{apolice.dataEmissao}</span>
             </div>
           </div>
         </div>

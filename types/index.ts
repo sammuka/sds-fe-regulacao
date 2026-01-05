@@ -14,7 +14,7 @@ export type StatusSinistro =
   | 'Judicial'
 
 export type FaseSinistro =
-  | 'Abertura do Aviso'
+  | 'Aviso'
   | 'Análise Documental'
   | 'Avaliação Técnica'
   | 'Cálculo de Indenização'
@@ -158,6 +158,7 @@ export interface Cobertura {
   validadaAgente: boolean
   vigente?: boolean
   carenciaCumprida?: boolean
+  carenciaDias?: number
 }
 
 export interface Beneficiario {
@@ -255,13 +256,22 @@ export type TipoEventoFormal =
   | 'pericia-enviada'
   | 'pericia-retornou'
   | 'processo-judicial-registrado'
+  // Tipos adicionais para contexto
+  | 'abertura_aviso'
+  | 'validacao_dados'
+  | 'analise_cobertura'
+  | 'pagamento'
 
 export interface EventoFormal {
   id: string
   data: string
-  ator: 'Agente' | 'Sistema' | string // nome do usuário
-  evento: TipoEventoFormal
+  hora?: string
+  ator?: 'Agente' | 'Sistema' | string // nome do usuário
+  tipo?: TipoEventoFormal  // tipo do evento
+  evento?: TipoEventoFormal // alias para 'tipo' (compatibilidade com mocks)
   descricao: string
+  detalhes?: string
+  usuario?: string // alias para 'ator' (compatibilidade)
   observacao?: string
 }
 
@@ -340,9 +350,9 @@ export interface EstadoStepper {
 }
 
 export const ETAPAS_STEPPER = [
-  { numero: 0 as EtapaStepper, nome: 'Abertura do Aviso', chave: 'abertura' },
-  { numero: 1 as EtapaStepper, nome: 'Dados do Segurado', chave: 'dados' },
-  { numero: 2 as EtapaStepper, nome: 'Coberturas da Apólice', chave: 'coberturas' },
+  { numero: 0 as EtapaStepper, nome: 'Aviso', chave: 'abertura' },
+  { numero: 1 as EtapaStepper, nome: 'Segurado', chave: 'dados' },
+  { numero: 2 as EtapaStepper, nome: 'Coberturas', chave: 'coberturas' },
   { numero: 3 as EtapaStepper, nome: 'Beneficiários', chave: 'beneficiarios' },
   { numero: 4 as EtapaStepper, nome: 'Pagamentos', chave: 'pagamentos' },
 ] as const

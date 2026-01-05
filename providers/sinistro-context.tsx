@@ -16,9 +16,18 @@ import {
 import {
   mockSinistros,
   mockEtapasFluxo,
-  mockEspecialistas,
   getDadosCenario,
 } from '@/data/mocks'
+
+// Tipos para ações
+type TipoEventoFormal = EventoFormal['tipo']
+
+interface NovoEventoFormal {
+  tipo: TipoEventoFormal
+  descricao: string
+  detalhes?: string
+  usuario?: string
+}
 
 interface SinistroContextType {
   // Dados
@@ -38,9 +47,20 @@ interface SinistroContextType {
   completarEtapa: (etapa: EtapaStepper) => void
   podeAvancar: (etapa: EtapaStepper) => boolean
   
-  // Ações
+  // Ações principais
   selecionarSinistro: (id: string) => void
   limparSinistro: () => void
+  
+  // Ações de aprovação
+  aprovarAbertura: (parecer?: string) => Promise<void>
+  aprovarDadosSegurado: (parecer?: string) => Promise<void>
+  aprovarCobertura: (parecer?: string) => Promise<void>
+  aprovarBeneficiarios: (parecer?: string) => Promise<void>
+  aprovarPagamento: (pagamentoId: string, parecer?: string) => Promise<void>
+  
+  // Ações auxiliares
+  registrarEventoFormal: (evento: NovoEventoFormal) => void
+  atualizarStatusSinistro: (novoStatus: Sinistro['status']) => void
 }
 
 const SinistroContext = createContext<SinistroContextType | undefined>(undefined)
@@ -142,6 +162,103 @@ export function SinistroProvider({ children }: { children: ReactNode }) {
     return prerequisitos.every(p => estadoStepper.etapasCompletas.includes(p))
   }, [estadoStepper])
 
+  // Função para registrar eventos no log formal
+  const registrarEventoFormal = useCallback((evento: NovoEventoFormal) => {
+    const novoEvento: EventoFormal = {
+      id: `EVT-${Date.now()}`,
+      data: new Date().toISOString().split('T')[0],
+      hora: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
+      tipo: evento.tipo,
+      descricao: evento.descricao,
+      detalhes: evento.detalhes,
+      usuario: evento.usuario || 'Ana Silva',
+    }
+    setLogFormal(prev => [novoEvento, ...prev])
+  }, [])
+
+  // Função para atualizar o status do sinistro
+  const atualizarStatusSinistro = useCallback((novoStatus: Sinistro['status']) => {
+    setSinistroAtual(prev => prev ? { ...prev, status: novoStatus } : null)
+  }, [])
+
+  // Aprovar abertura do aviso (Etapa 0)
+  const aprovarAbertura = useCallback(async (parecer?: string) => {
+    await new Promise(resolve => setTimeout(resolve, 500))
+    
+    registrarEventoFormal({
+      tipo: 'abertura_aviso',
+      descricao: 'Abertura do aviso aprovada pelo analista',
+      detalhes: parecer || 'Aprovado conforme análise do agente',
+    })
+    
+    completarEtapa(0)
+    atualizarStatusSinistro('Em Análise')
+  }, [registrarEventoFormal, completarEtapa, atualizarStatusSinistro])
+
+  // Aprovar dados do segurado (Etapa 1)
+  const aprovarDadosSegurado = useCallback(async (parecer?: string) => {
+    await new Promise(resolve => setTimeout(resolve, 500))
+    
+    registrarEventoFormal({
+      tipo: 'validacao_dados',
+      descricao: 'Dados do segurado validados',
+      detalhes: parecer || 'Dados confirmados pelo analista',
+    })
+    
+    completarEtapa(1)
+  }, [registrarEventoFormal, completarEtapa])
+
+  // Aprovar cobertura (Etapa 2)
+  const aprovarCobertura = useCallback(async (parecer?: string) => {
+    await new Promise(resolve => setTimeout(resolve, 500))
+    
+    registrarEventoFormal({
+      tipo: 'analise_cobertura',
+      descricao: 'Cobertura aplicável confirmada',
+      detalhes: parecer || 'Cobertura validada conforme análise',
+    })
+    
+    completarEtapa(2)
+  }, [registrarEventoFormal, completarEtapa])
+
+  // Aprovar beneficiários (Etapa 3)
+  const aprovarBeneficiarios = useCallback(async (parecer?: string) => {
+    await new Promise(resolve => setTimeout(resolve, 500))
+    
+    registrarEventoFormal({
+      tipo: 'validacao_dados',
+      descricao: 'Beneficiários validados',
+      detalhes: parecer || 'Dados dos beneficiários confirmados',
+    })
+    
+    completarEtapa(3)
+  }, [registrarEventoFormal, completarEtapa])
+
+  // Aprovar pagamento (Etapa 4)
+  const aprovarPagamento = useCallback(async (pagamentoId: string, parecer?: string) => {
+    await new Promise(resolve => setTimeout(resolve, 500))
+    
+    setPagamentos(prev => prev.map(p => 
+      p.id === pagamentoId ? { ...p, status: 'aprovado' as const } : p
+    ))
+    
+    registrarEventoFormal({
+      tipo: 'pagamento',
+      descricao: `Pagamento ${pagamentoId} aprovado`,
+      detalhes: parecer || 'Pagamento autorizado pelo analista',
+    })
+    
+    // Verifica se todos os pagamentos estão aprovados
+    const todosPagamentosAprovados = pagamentos.every(p => 
+      p.id === pagamentoId ? true : p.status === 'aprovado'
+    )
+    
+    if (todosPagamentosAprovados) {
+      completarEtapa(4)
+      atualizarStatusSinistro('Aprovado')
+    }
+  }, [pagamentos, registrarEventoFormal, completarEtapa, atualizarStatusSinistro])
+
   const value = useMemo<SinistroContextType>(() => ({
     sinistros,
     sinistroAtual,
@@ -158,6 +275,13 @@ export function SinistroProvider({ children }: { children: ReactNode }) {
     podeAvancar,
     selecionarSinistro,
     limparSinistro,
+    aprovarAbertura,
+    aprovarDadosSegurado,
+    aprovarCobertura,
+    aprovarBeneficiarios,
+    aprovarPagamento,
+    registrarEventoFormal,
+    atualizarStatusSinistro,
   }), [
     sinistros,
     sinistroAtual,
@@ -174,6 +298,13 @@ export function SinistroProvider({ children }: { children: ReactNode }) {
     podeAvancar,
     selecionarSinistro,
     limparSinistro,
+    aprovarAbertura,
+    aprovarDadosSegurado,
+    aprovarCobertura,
+    aprovarBeneficiarios,
+    aprovarPagamento,
+    registrarEventoFormal,
+    atualizarStatusSinistro,
   ])
 
   return (

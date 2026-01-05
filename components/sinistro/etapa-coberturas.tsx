@@ -1,106 +1,216 @@
 'use client'
 
-import { Check, AlertCircle } from 'lucide-react'
+import { useState } from 'react'
+import { Check, CheckCircle2, RefreshCw, Shield, History } from 'lucide-react'
 import { AgentIndicator } from '@/components/agent/agent-indicator'
 import { useSinistro } from '@/providers/sinistro-context'
 import { formatCurrency } from '@/lib/utils'
+import { Button } from '@/components/ui/button'
+import { ConfirmDialog } from '@/components/ui/confirm-dialog'
+import { feedback } from '@/lib/feedback'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table'
 
 export function EtapaCoberturas() {
-  const { coberturas } = useSinistro()
+  const { coberturas, estadoStepper, aprovarCobertura, sinistroAtual } = useSinistro()
+  const [loading, setLoading] = useState(false)
+  const [dialogOpen, setDialogOpen] = useState(false)
+  const [dialogReanalisarOpen, setDialogReanalisarOpen] = useState(false)
 
-  const cobertura = coberturas[0] // Cobertura principal
+  const coberturaAprovada = estadoStepper.etapasCompletas.includes(2)
+  const etapaBloqueada = estadoStepper.etapasBloqueadas.includes(2)
+
+  const handleAprovar = async () => {
+    setLoading(true)
+    try {
+      await aprovarCobertura()
+      feedback.success('Cobertura aprovada', 'A cobertura foi confirmada para o sinistro')
+      setDialogOpen(false)
+    } catch {
+      feedback.error('Erro ao aprovar', 'Tente novamente')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleSolicitarReanalise = (parecer?: string) => {
+    feedback.info('Reanálise solicitada', parecer || 'A cobertura será reavaliada pelo agente')
+    setDialogReanalisarOpen(false)
+  }
+
+  if (etapaBloqueada) {
+    return (
+      <div className="bg-gray-50 rounded-lg p-6 text-center">
+        <div className="text-gray-400 mb-2">🔒</div>
+        <p className="text-gray-500">Complete a etapa anterior para desbloquear</p>
+      </div>
+    )
+  }
+
+  // Cobertura principal filtrada pela natureza do sinistro
+  const cobertura = coberturas[0]
+
+  if (!cobertura) {
+    return (
+      <div className="bg-white rounded-lg shadow-sm p-6">
+        <p className="text-gray-500 text-center">Nenhuma cobertura identificada</p>
+      </div>
+    )
+  }
 
   return (
-    <div className="bg-white rounded-lg shadow-sm p-6">
-      <div className="mb-6">
-        <h2 className="font-['Poppins'] text-[#424242] text-[24px] mb-2">
-          Cobertura Aplicável
-        </h2>
-        <p className="font-['Poppins'] text-[#707070]">
-          Com base na natureza/causa do sinistro, identificamos a cobertura atuarial aplicável
-        </p>
+    <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+      {/* Header compacto */}
+      <div className="px-4 py-3 border-b border-gray-100 flex items-center justify-between bg-gray-50">
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 bg-blue-100 rounded flex items-center justify-center">
+            <Shield className="w-4 h-4 text-blue-600" />
+          </div>
+          <h2 className="text-base font-semibold text-gray-900">ANÁLISE DE COBERTURAS</h2>
+        </div>
+        <AgentIndicator type="validated" label="Agent ✓ 98%" />
       </div>
 
-      {cobertura && (
-        <div className="bg-[#e9f5f9] border-2 border-[#239dc5] rounded-lg p-6">
-          <div className="mb-4">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="font-['Poppins'] text-[#424242] text-[18px] font-medium">
-                {cobertura.nome}
-              </div>
-              <span className="px-3 py-1 bg-[#239dc5] text-white rounded-full text-sm font-['Poppins']">
-                Cobertura Aplicável
-              </span>
-              {cobertura.validadaAgente && (
-                <AgentIndicator type="validated" />
-              )}
-            </div>
-
-            <div className="grid grid-cols-2 gap-6">
-              <div>
-                <div className="text-sm font-['Poppins'] text-[#707070] mb-1">
-                  Valor Segurado
-                </div>
-                <div className="font-['Poppins'] text-[#424242] text-[20px]">
+      <div className="p-4">
+        {/* Tabela de coberturas */}
+        <div className="border border-gray-200 rounded-lg overflow-hidden mb-4">
+          <Table>
+            <TableHeader>
+              <TableRow className="bg-gray-50">
+                <TableHead className="font-semibold text-gray-700 text-xs uppercase">Cobertura</TableHead>
+                <TableHead className="font-semibold text-gray-700 text-xs uppercase">Valor Segurado</TableHead>
+                <TableHead className="font-semibold text-gray-700 text-xs uppercase">Franquia</TableHead>
+                <TableHead className="font-semibold text-gray-700 text-xs uppercase text-center">Vigência</TableHead>
+                <TableHead className="font-semibold text-gray-700 text-xs uppercase text-center">Status</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow className="bg-green-50/50">
+                <TableCell className="font-medium text-gray-900">
+                  <div className="flex items-center gap-2">
+                    <span>{cobertura.nome}</span>
+                    {cobertura.validadaAgente && (
+                      <CheckCircle2 className="w-4 h-4 text-green-500" />
+                    )}
+                  </div>
+                </TableCell>
+                <TableCell className="font-semibold text-gray-900">
                   {formatCurrency(cobertura.valorSegurado)}
-                </div>
-              </div>
-              <div>
-                <div className="text-sm font-['Poppins'] text-[#707070] mb-1">
-                  Franquia
-                </div>
-                <div className="font-['Poppins'] text-[#424242] text-[20px]">
+                </TableCell>
+                <TableCell className="text-gray-700">
                   {formatCurrency(cobertura.franquia)}
-                </div>
-              </div>
-            </div>
-          </div>
+                </TableCell>
+                <TableCell className="text-center">
+                  <span className="text-green-600">✓</span>
+                </TableCell>
+                <TableCell className="text-center">
+                  <span className="inline-flex items-center gap-1 px-2 py-1 bg-green-100 text-green-700 rounded text-xs font-medium">
+                    <span className="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
+                    APLICÁVEL
+                  </span>
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </div>
 
-          {/* Análise de Vigência */}
-          <div className="mt-4 pt-4 border-t border-[#239dc5]/30">
-            <div className="flex items-start gap-3">
-              <Check className="w-5 h-5 text-[#208fb3] flex-shrink-0 mt-0.5" />
-              <div>
-                <div className="font-['Poppins'] text-[#424242] mb-1">
-                  Análise de Vigência
-                </div>
-                <div className="text-sm font-['Poppins'] text-[#575757]">
-                  A apólice estava vigente na data do sinistro (28/10/2025). 
-                  Período de carência cumprido. Não há restrições aplicáveis.
-                </div>
-              </div>
+        {/* Análise resumida */}
+        <div className="bg-blue-50 rounded-lg p-3 mb-4">
+          <div className="grid grid-cols-2 gap-4 text-sm">
+            <div className="flex items-center gap-2">
+              <span className="text-gray-600">Análise:</span>
+              <span className="text-gray-900">
+                Sinistro tipo <strong>{sinistroAtual?.dadosAviso?.naturezaEvento || 'MORTE NATURAL'}</strong> → 
+                Cobertura <strong>{cobertura.nome}</strong>
+              </span>
             </div>
-          </div>
-
-          {/* Correspondência */}
-          <div className="mt-4 pt-4 border-t border-[#239dc5]/30">
-            <div className="flex items-start gap-3">
-              <AlertCircle className="w-5 h-5 text-[#208fb3] flex-shrink-0 mt-0.5" />
-              <div>
-                <div className="font-['Poppins'] text-[#424242] mb-1">
-                  Correspondência Identificada pelo Agente
-                </div>
-                <div className="text-sm font-['Poppins'] text-[#575757]">
-                  Natureza do Sinistro: <span className="font-medium">Morte Natural</span> → 
-                  Cobertura: <span className="font-medium">{cobertura.nome}</span>
-                </div>
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-1.5">
+                <Check className="w-4 h-4 text-green-500" />
+                <span className="text-gray-700">Carência: Cumprida ({cobertura.carenciaDias || 180} dias)</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <Check className="w-4 h-4 text-green-500" />
+                <span className="text-gray-700">Prêmios: Em dia</span>
               </div>
             </div>
           </div>
         </div>
-      )}
 
-      {/* Botões de ação */}
-      <div className="mt-6 flex items-center gap-4">
-        <button className="px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 flex items-center gap-2">
-          <Check className="w-4 h-4" />
-          Aprovar Cobertura
-        </button>
-        <button className="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
-          Solicitar Reanálise
-        </button>
+        {/* Botões de ação */}
+        <div className="flex items-center justify-between pt-3 border-t border-gray-100">
+          <div className="text-sm text-gray-500">
+            Vigência verificada na data do sinistro • Sem restrições aplicáveis
+          </div>
+
+          <div className="flex items-center gap-2">
+            {!coberturaAprovada ? (
+              <>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setDialogReanalisarOpen(true)}
+                >
+                  <RefreshCw className="w-3.5 h-3.5" />
+                  Solicitar Reanálise
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                >
+                  <History className="w-3.5 h-3.5" />
+                  Ver Histórico
+                </Button>
+                <Button
+                  size="sm"
+                  onClick={() => setDialogOpen(true)}
+                  className="bg-green-500 hover:bg-green-600 text-white"
+                >
+                  <Check className="w-3.5 h-3.5" />
+                  Aprovar Cobertura
+                </Button>
+              </>
+            ) : (
+              <span className="px-3 py-1.5 bg-green-100 text-green-700 rounded text-sm flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4" />
+                Cobertura Aprovada
+              </span>
+            )}
+          </div>
+        </div>
       </div>
+
+      {/* Dialog de confirmação de aprovação */}
+      <ConfirmDialog
+        open={dialogOpen}
+        onOpenChange={setDialogOpen}
+        title="Aprovar Cobertura"
+        description="Confirma que a cobertura identificada está correta e pode ser aplicada ao sinistro?"
+        confirmText="Aprovar"
+        variant="default"
+        onConfirm={handleAprovar}
+        loading={loading}
+      />
+
+      {/* Dialog de reanálise */}
+      <ConfirmDialog
+        open={dialogReanalisarOpen}
+        onOpenChange={setDialogReanalisarOpen}
+        title="Solicitar Reanálise de Cobertura"
+        description="Informe o motivo pelo qual a cobertura deve ser reanalisada pelo agente."
+        confirmText="Solicitar"
+        variant="warning"
+        onConfirm={handleSolicitarReanalise}
+        requireParecer
+        parecerLabel="Motivo da Reanálise"
+        parecerPlaceholder="Descreva o que deve ser verificado novamente..."
+      />
     </div>
   )
 }
-

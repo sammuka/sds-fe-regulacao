@@ -21,69 +21,71 @@ export function StepperAnalista({ className }: StepperAnalistaProps) {
   const { estadoStepper, setEtapaStepper, podeAvancar } = useSinistro()
 
   return (
-    <div className={cn('bg-white rounded-lg shadow-sm', className)}>
-      <div className="flex items-center border-b border-[var(--cinza-200)] overflow-x-auto">
-        {ETAPAS_STEPPER.map((etapa) => {
+    <div className={cn('bg-white rounded-lg shadow-sm overflow-hidden', className)}>
+      <div className="flex items-stretch border-b border-[var(--cinza-200)] overflow-x-auto">
+        {ETAPAS_STEPPER.map((etapa, index) => {
           const Icon = iconMap[etapa.numero]
           const isCompleted = estadoStepper.etapasCompletas.includes(etapa.numero)
           const isCurrent = etapa.numero === estadoStepper.etapaAtual
           const isBlocked = estadoStepper.etapasBloqueadas.includes(etapa.numero)
           const canNavigate = !isBlocked || podeAvancar(etapa.numero)
+          const isFirst = index === 0
+          const isLast = index === ETAPAS_STEPPER.length - 1
 
           return (
-            <div key={etapa.numero} className="flex-1 min-w-[140px]">
-              <button
-                onClick={() => canNavigate && setEtapaStepper(etapa.numero)}
-                disabled={isBlocked && !canNavigate}
+            <button
+              key={etapa.numero}
+              onClick={() => canNavigate && setEtapaStepper(etapa.numero)}
+              disabled={isBlocked && !canNavigate}
+              className={cn(
+                'flex-1 min-w-[140px] py-4 flex items-center gap-3 transition-colors border-r border-[var(--cinza-200)] last:border-r-0',
+                isFirst ? 'pl-6 pr-4' : isLast ? 'pl-4 pr-6' : 'px-4',
+                isCurrent && 'bg-[var(--azul-principal-50)] border-b-2 border-[var(--azul-principal-500)]',
+                isCompleted && !isCurrent && 'bg-[var(--verde-50)]',
+                !isCurrent && !isCompleted && !isBlocked && 'hover:bg-[var(--cinza-50)]',
+                isBlocked && 'opacity-50 cursor-not-allowed'
+              )}
+            >
+              <div
                 className={cn(
-                  'w-full px-4 py-4 flex items-center gap-3 transition-colors',
-                  isCurrent && 'bg-[var(--azul-principal-50)] border-b-2 border-[var(--azul-principal-500)]',
-                  isCompleted && !isCurrent && 'bg-[var(--verde-50)]',
-                  !isCurrent && !isCompleted && !isBlocked && 'hover:bg-[var(--cinza-50)]',
-                  isBlocked && 'opacity-50 cursor-not-allowed'
+                  'w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0',
+                  isCompleted && 'bg-[var(--verde-500)] text-white',
+                  isCurrent && !isCompleted && 'bg-[var(--azul-principal-500)] text-white',
+                  !isCurrent && !isCompleted && !isBlocked && 'bg-[var(--cinza-200)] text-[var(--cinza-600)]',
+                  isBlocked && 'bg-[var(--cinza-100)] text-[var(--cinza-400)]'
                 )}
               >
+                {isBlocked ? (
+                  <Lock className="w-4 h-4" />
+                ) : isCompleted ? (
+                  <Check className="w-4 h-4" />
+                ) : (
+                  <Icon className="w-4 h-4" />
+                )}
+              </div>
+              <div className="text-left">
                 <div
                   className={cn(
-                    'w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0',
-                    isCompleted && 'bg-[var(--verde-500)] text-white',
-                    isCurrent && !isCompleted && 'bg-[var(--azul-principal-500)] text-white',
-                    !isCurrent && !isCompleted && !isBlocked && 'bg-[var(--cinza-200)] text-[var(--cinza-600)]',
-                    isBlocked && 'bg-[var(--cinza-100)] text-[var(--cinza-400)]'
+                    'text-sm',
+                    isCurrent && 'text-[var(--azul-principal-500)]',
+                    isBlocked && 'text-[var(--cinza-400)]',
+                    !isCurrent && !isBlocked && 'text-[var(--cinza-600)]'
                   )}
                 >
-                  {isBlocked ? (
-                    <Lock className="w-4 h-4" />
-                  ) : isCompleted ? (
-                    <Check className="w-4 h-4" />
-                  ) : (
-                    <Icon className="w-4 h-4" />
+                  Etapa {etapa.numero + 1}
+                </div>
+                <div
+                  className={cn(
+                    'text-sm font-medium',
+                    isCurrent && 'text-[var(--cinza-900)]',
+                    isBlocked && 'text-[var(--cinza-400)]',
+                    !isCurrent && !isBlocked && 'text-[var(--cinza-700)]'
                   )}
+                >
+                  {etapa.nome}
                 </div>
-                <div className="text-left">
-                  <div
-                    className={cn(
-                      'text-sm',
-                      isCurrent && 'text-[var(--azul-principal-500)]',
-                      isBlocked && 'text-[var(--cinza-400)]',
-                      !isCurrent && !isBlocked && 'text-[var(--cinza-600)]'
-                    )}
-                  >
-                    Etapa {etapa.numero + 1}
-                  </div>
-                  <div
-                    className={cn(
-                      'text-sm font-medium',
-                      isCurrent && 'text-[var(--cinza-900)]',
-                      isBlocked && 'text-[var(--cinza-400)]',
-                      !isCurrent && !isBlocked && 'text-[var(--cinza-700)]'
-                    )}
-                  >
-                    {etapa.nome}
-                  </div>
-                </div>
-              </button>
-            </div>
+              </div>
+            </button>
           )
         })}
       </div>

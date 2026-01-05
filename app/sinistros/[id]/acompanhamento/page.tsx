@@ -25,7 +25,7 @@ import { cn } from '@/lib/utils'
 import { TipoEventoFormal } from '@/types'
 
 // Ícones para cada tipo de evento formal
-const iconeEventoFormal: Record<TipoEventoFormal, typeof FileText> = {
+const iconeEventoFormal: Partial<Record<TipoEventoFormal, typeof FileText>> = {
   'aviso-aberto': FileText,
   'inicio-regulacao': Play,
   'beneficiario-cadastrado': User,
@@ -39,10 +39,15 @@ const iconeEventoFormal: Record<TipoEventoFormal, typeof FileText> = {
   'pericia-enviada': User,
   'pericia-retornou': CheckCircle2,
   'processo-judicial-registrado': Scale,
+  // Tipos adicionais do contexto
+  'abertura_aviso': FileText,
+  'validacao_dados': CheckCircle2,
+  'analise_cobertura': FileText,
+  'pagamento': CheckCircle2,
 }
 
 // Labels para os tipos de evento
-const labelEventoFormal: Record<TipoEventoFormal, string> = {
+const labelEventoFormal: Partial<Record<TipoEventoFormal, string>> = {
   'aviso-aberto': 'Aviso Aberto',
   'inicio-regulacao': 'Início Regulação',
   'beneficiario-cadastrado': 'Beneficiário Cadastrado',
@@ -56,6 +61,11 @@ const labelEventoFormal: Record<TipoEventoFormal, string> = {
   'pericia-enviada': 'Perícia Enviada',
   'pericia-retornou': 'Perícia Retornou',
   'processo-judicial-registrado': 'Processo Judicial',
+  // Tipos adicionais do contexto
+  'abertura_aviso': 'Abertura do Aviso',
+  'validacao_dados': 'Validação de Dados',
+  'analise_cobertura': 'Análise de Cobertura',
+  'pagamento': 'Pagamento',
 }
 
 export default function AcompanhamentoPage() {
@@ -97,7 +107,7 @@ export default function AcompanhamentoPage() {
       <TopBar sinistroNumero={sinistroAtual.id} />
       <HeaderApolice apolice={apolice} sla={sinistroAtual.sla} />
 
-      <main className="pt-[168px] px-4 pb-8">
+      <main className="pt-[176px] px-4 pb-8">
         <div className="w-full max-w-[1200px] mx-auto">
           <button
             onClick={() => router.push(`/sinistros/${sinistroAtual.id}`)}
@@ -107,15 +117,21 @@ export default function AcompanhamentoPage() {
             Voltar
           </button>
 
-          <div className="bg-white rounded-lg shadow-sm p-6">
-            <div className="flex items-center justify-between mb-6">
-              <div>
-                <h2 className="text-[var(--cinza-900)] text-xl mb-1">Acompanhamento do Sinistro</h2>
-                <p className="text-[var(--cinza-600)]">Historico completo das acoes e eventos</p>
+          <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+            {/* Header compacto */}
+            <div className="px-4 py-3 border-b border-gray-100 flex items-center justify-between bg-gray-50">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-purple-100 rounded flex items-center justify-center">
+                  <Clock className="w-4 h-4 text-purple-600" />
+                </div>
+                <h2 className="text-base font-semibold text-gray-900">ACOMPANHAMENTO</h2>
+                <span className="text-xs text-gray-500 bg-gray-200 px-2 py-0.5 rounded">
+                  {eventos.length} eventos
+                </span>
               </div>
 
               {/* Tabs de visualizacao */}
-              <div className="flex bg-[var(--cinza-100)] rounded-lg p-1">
+              <div className="flex bg-gray-200 rounded-lg p-1">
                 <button
                   onClick={() => setVisualizacao('timeline')}
                   className={cn(
@@ -149,11 +165,11 @@ export default function AcompanhamentoPage() {
 
             {/* Timeline View */}
             {visualizacao === 'timeline' && (
-              <div className="relative">
+              <div className="relative p-4">
                 {/* Timeline line */}
-                <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-[var(--cinza-200)]" />
+                <div className="absolute left-6 top-4 bottom-4 w-0.5 bg-gray-200" />
 
-                <div className="space-y-6">
+                <div className="space-y-3">
                   {eventos.map((evento) => (
                     <div key={evento.id} className="relative flex gap-4">
                       {/* Timeline dot */}
@@ -236,10 +252,12 @@ export default function AcompanhamentoPage() {
                   </thead>
                   <tbody>
                     {logFormal.map((log) => {
-                      const Icone = iconeEventoFormal[log.evento]
-                      const isSystemEvent = log.ator === 'Sistema' || log.ator === 'Agente'
-                      const isSLAEvent = log.evento === 'sla-suspenso' || log.evento === 'sla-retomado'
-                      const isJudicialEvent = log.evento === 'processo-judicial-registrado'
+                      const eventoKey = log.evento || log.tipo || 'aviso-aberto'
+                      const Icone = iconeEventoFormal[eventoKey] || FileText
+                      const ator = log.ator || log.usuario || 'Sistema'
+                      const isSystemEvent = ator === 'Sistema' || ator === 'Agente'
+                      const isSLAEvent = eventoKey === 'sla-suspenso' || eventoKey === 'sla-retomado'
+                      const isJudicialEvent = eventoKey === 'processo-judicial-registrado'
                       
                       return (
                         <tr
@@ -257,23 +275,23 @@ export default function AcompanhamentoPage() {
                               isSystemEvent ? 'bg-[var(--azul-principal-100)] text-[var(--azul-principal-700)]' : 'bg-[var(--cinza-100)] text-[var(--cinza-700)]'
                             )}>
                               {isSystemEvent ? <Cpu className="w-3 h-3" /> : <User className="w-3 h-3" />}
-                              {log.ator}
+                              {ator}
                             </span>
                           </td>
                           <td className="py-3 px-4">
                             <span className={cn(
                               'inline-flex items-center gap-1 px-2 py-1 rounded text-xs',
-                              isSLAEvent && log.evento === 'sla-suspenso' && 'bg-[var(--amarelo-200)] text-[var(--amarelo-800)]',
-                              isSLAEvent && log.evento === 'sla-retomado' && 'bg-[var(--verde-200)] text-[var(--verde-800)]',
+                              isSLAEvent && eventoKey === 'sla-suspenso' && 'bg-[var(--amarelo-200)] text-[var(--amarelo-800)]',
+                              isSLAEvent && eventoKey === 'sla-retomado' && 'bg-[var(--verde-200)] text-[var(--verde-800)]',
                               isJudicialEvent && 'bg-[var(--vermelho-200)] text-[var(--vermelho-800)]',
                               !isSLAEvent && !isJudicialEvent && 'bg-[var(--cinza-200)] text-[var(--cinza-800)]'
                             )}>
                               <Icone className="w-3 h-3" />
-                              {labelEventoFormal[log.evento]}
+                              {labelEventoFormal[eventoKey] || log.descricao}
                             </span>
                           </td>
                           <td className="py-3 px-4 text-sm text-[var(--cinza-900)]">{log.descricao}</td>
-                          <td className="py-3 px-4 text-sm text-[var(--cinza-500)]">{log.observacao || '-'}</td>
+                          <td className="py-3 px-4 text-sm text-[var(--cinza-500)]">{log.observacao || log.detalhes || '-'}</td>
                         </tr>
                       )
                     })}
