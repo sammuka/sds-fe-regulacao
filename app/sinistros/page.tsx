@@ -84,7 +84,7 @@ export default function FilaSinistrosPage() {
     })
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-[var(--cinza-50)]">
       <TopBar />
       
       <main className="flex justify-center px-4 py-6">

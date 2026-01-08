@@ -84,7 +84,7 @@ export default function DocumentosPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[var(--cinza-100)]">
+    <div className="min-h-screen bg-[var(--cinza-50)]">
       <TopBar sinistroNumero={sinistroAtual.id} />
       <HeaderApolice apolice={apolice} sla={sinistroAtual.sla} />
 

@@ -21,8 +21,8 @@ export function StepperAnalista({ className }: StepperAnalistaProps) {
   const { estadoStepper, setEtapaStepper, podeAvancar } = useSinistro()
 
   return (
-    <div className={cn('bg-white rounded-lg shadow-sm overflow-hidden', className)}>
-      <div className="flex items-stretch border-b border-[var(--cinza-200)] overflow-x-auto">
+    <div className={cn('bg-[var(--cinza-50)] overflow-hidden', className)}>
+      <div className="flex items-stretch overflow-x-auto">
         {ETAPAS_STEPPER.map((etapa, index) => {
           const Icon = iconMap[etapa.numero]
           const isCompleted = estadoStepper.etapasCompletas.includes(etapa.numero)

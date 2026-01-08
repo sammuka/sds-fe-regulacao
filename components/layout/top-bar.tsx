@@ -116,7 +116,7 @@ export function TopBar({ sinistroNumero }: TopBarProps) {
   const PerfilIcon = currentPerfil.icon
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 p-3 bg-[var(--cinza-100)]">
+    <header className="fixed top-0 left-0 right-0 z-50 p-3 bg-[var(--cinza-50)]">
       <div className="bg-[#239dc5] flex items-center gap-4 px-4 py-2.5 max-w-[1200px] mx-auto rounded-xl shadow-lg">
         <Link href="/sinistros" className="shrink-0">
           <LogoSds />

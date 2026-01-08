@@ -30,7 +30,7 @@ export function HeaderApolice({ apolice, sla }: HeaderApoliceProps) {
   }
 
   return (
-    <div className="fixed top-[67px] left-0 right-0 z-40 px-4 py-1.5 bg-[var(--cinza-100)]">
+    <div className="fixed top-[67px] left-0 right-0 z-40 px-4 py-1.5 bg-[var(--cinza-50)]">
       <div className="bg-gradient-to-r from-[#6ec8e5] to-[#1c7b99] px-4 py-2.5 max-w-[1200px] mx-auto rounded-xl shadow-md flex items-center justify-between gap-4">
         <div className="text-white font-['Poppins'] text-[11px] leading-relaxed flex-1">
           <div className="grid grid-cols-3 gap-x-8 gap-y-2">
