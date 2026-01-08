@@ -1,5 +1,8 @@
 // Tipos principais do domínio de Regulação
 
+// Re-exporta tipos do fluxo visual
+export * from './fluxo-visual'
+
 export type PerfilUsuario = 'analista' | 'analista-admin' | 'perito'
 
 export type StatusSinistro = 
